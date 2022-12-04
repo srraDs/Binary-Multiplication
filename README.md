@@ -4,9 +4,14 @@ This project as what was assigned to Group 6 of CSArch2 is an interactive websit
 
 
 (Accending sequence is according to modules.)
+
 **Pencil-and-paper method**
+
 **Booth's algorithm**
+
 **Extended Booth's algorithm**
+
+
 
 The sole purpose of the development of this website is a major course output in CSARCH2. The summary of this project is:
 
