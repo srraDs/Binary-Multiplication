@@ -4,19 +4,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" media="all" href="/css/index.css">
+    <link rel="stylesheet" type="text/css" media="all" href="css/index.css">
     <title>Binary Multiplication</title>
 </head>
 <body>
     <div class="topbar">
-        <a>Binary Multiplication</a>
-        <a><p>Pen and Paper</p></a>
-        <a><p>Booth's Method</p></a>
-        <a><p>Extended Booth's Method</p></a>
+        <a id="BM">Binary Multiplication</a>
+        <a id="pnp">Pen and Paper</a>
+        <a id="boothM">Booth's Method</a>
+        <a id="ebm">Extended Booth's Method</a>
     </div>
     <div class="body">
         <div class="inputFields">
-            
+            <form action="index.html">
+                <label for="multiplicand">Multiplicand:</label><br/>
+                <input type="text" id="multiplicand" name="multiplicand">
+                <label for="multiplier">Multiplier:</label><br />
+                <input type="text" id="multiplier" name="multiplier">
+            </form>
         </div>
     </div>
 </body>
