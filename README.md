@@ -15,8 +15,9 @@ This project as what was assigned to Group 6 of CSArch2 is an interactive websit
 
 The sole purpose of the development of this website is a major course output in CSARCH2. The summary of this project is:
 
-*User can input both in decimal and binary number, that is up to a maximum of 16 bits.
-*User can have options of having the answers already or to have it step by step.
+Markup : ***User can input both in decimal and binary number, that is up to a maximum of 16 bits.***
+
+Markup : ***User can have options of having the answers already or to have it step by step.***
 
 
  
