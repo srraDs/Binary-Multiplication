@@ -1,6 +1,6 @@
 
-*{
-font-family: Arial, Helvetica, sans-serif;
+* {
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 .body{
     background-color:rgb(231, 227, 215) ;
@@ -23,7 +23,7 @@ padding-bottom: 1%;
     cursor: pointer;
 }
 .topbar #pnp {
-    margin-left: 50%;
+    margin-left: 55%;
     color: aliceblue;
     padding-top: 1%;
     padding-bottom: 1%;
@@ -71,4 +71,7 @@ padding-bottom: 1%;
 button:hover{
     cursor: pointer;
     background-color:rgb(134, 219, 210);
+}
+.solutionField{
+    text-align: center;
 }
