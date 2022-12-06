@@ -48,7 +48,7 @@ padding-bottom: 1%;
     padding-top: 1%;
     padding-bottom: 1%;
 }
-.inputFields{
+#input-numbers{
     display: block;
     max-width: 836px;
     max-height: 374px;
@@ -58,13 +58,16 @@ padding-bottom: 1%;
     text-align:center;
     align-items: center;
     border: 1px solid black;
-   
+    color: aliceblue;
+    font-weight: bold;
     background-color: rgb(33, 82, 83);
    
 }
-.inputform{
-    margin-top: 10%;
-    margin-bottom: 15%;
+#multiplicand-div{
+    margin-top: 5%;
+}
+.input-container{
+
     color: aliceblue;
     font-weight: bold;
 }
@@ -85,40 +88,33 @@ button:hover{
 }
 
 /* The container <div> - needed to position the dropdown content */
-.dropdown {
+#display-mode {
     position: relative;
     display: inline-block;
+    background-color:rgb(19, 34, 53); 
+    width: fit-content;
 }
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
+#display-mode:hover{
+    cursor: pointer;
+    background-color: rgb(134, 219, 210);
+    border: 1px solid black;
+    text-align: center;
 }
-
-/* Links inside the dropdown */
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
+#display-mode-text{
+    text-align: center;
+    
 }
-
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {
-    background-color: #ddd;
+#display-mode-container{
+    text-align: center;
 }
-
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
-    display: block;
+.inner{
+    text-align: center;
 }
-
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {
-    background-color: #3e8e41;
+#display-mode-content{
+    width: fit-content;
+    text-align: justify;
+    
+}
+.hidden{
+    visibility: hidden;
 }
