@@ -111,14 +111,7 @@ function showAlgoName(index) {
 	$('#algo-value').text(algoNames[index]);
 }
 
-/**
- * Displays the steps of the algorithm depending on the multiplication method index.
- *
- * @param {number} index Index of the multiplication method with respect to the mulMethods array in header.js.
- */
-function showAlgoSteps(index) {
-	$('#algo-steps').html(algoSteps[index]);
-}
+
 
 /**
  * Checks if the user has already entered a multiplicand and a multiplier and clicked the
@@ -144,7 +137,7 @@ function clickMulMethodUtil(elems, clickedElem) {
 	changeColorMulMethod(elems, clickedElem);
 	
 	showAlgoName(index);
-	showAlgoSteps(index);
+	
 
 	/* Scroll back to the top. */
 	window.scrollTo(0, 0);
