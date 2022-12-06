@@ -1,36 +1,31 @@
-/**
- * File containing the utility functions for binary number operations.
- *
- * The methods here are purely mathematical in nature. For methods related to formatting binary numbers
- * and strings, refer to demo-util.js.
+/*
+ *  The javascript file here contains the functions for the operations involving binary numbers.
+ *  These functions mainly deal with the math part of the webapp. (i.e. conversions, truncation, sign extension to name a few)
+ *  On other parts of the operations, they are handled by other files in the scripts folder.
  */
 
-/**
- * Converts a number to its 32-bit two's complement.
+/*
+ * The function below would convert a number to a 2's complement of 32 bits. Positive integers don't have leading 0's (i.e. 4 would return 100), 
+ * while negative integers will have leading 1's to fill 32 bits (i.e. -4 returns 11111111111111111111111111111100).
  *
- * This method does not place a leading zero on positive integers. For example, 6 is converted to 110.
- * As a form of differentiation, negative integers are represented using exactly 32 bits.
- * For example, -6 is converted to 11111111111111111111111111111010.
- *
- * @param {number} number Number to be converted to its 32-bit two's complement.
- * @returns {string} 32-bit two's complement of the given number.
+ *  The value passed is to be converted to a 2's complement of 32 bits.
+ *  The return value in turn gives back the converted value. 
  */
 function toBinaryRaw(number) {
 	/* Perform an arithmetic shift first to force two's complement. */
 	return (number >>> 0).toString(2);
 }
 
-/**
- * Converts a number to its two's complement using the fewest number of bits.
+/*
+ * This function below would convert a number to a 2's complement in the least bit amount.
+ * Unlike the prior function, this returns the 2's complement in the least number of bits.
+ * For positive integers, it would place a leading zero, while a special case exists of the smallest n-bit signed number.
  *
- * This method places a leading zero on positive integers. A special case is the smallest representable
- * n-bit signed number, that is, -2^n - 1, which is represented as 1 followed by (n-1) zeroes.
- *
- * @param {number} number Number to be converted to its two's complement using the fewest number of bits.
- * @returns {string} Two's complement of the given number using the fewest number of bits.
+ * The value passed is to be converted to a 2's complement of least bit amount.
+ * The return value in turn gives back the converted value.
  */
 function toBinary(number) {
-	/* Designate the smallest representable signed number, that is, -2^MAX_NUM_BITS - 1, as a special case. */
+	// The existing special case(-2^n-1)
 	if (number == -1 * Math.pow(2, MAX_NUM_BITS - 1)) {
 		let minBinary = '1';
 		for (let i = 0; i < MAX_NUM_BITS - 1; i++) {
@@ -42,46 +37,36 @@ function toBinary(number) {
 
 	const binary = toBinaryRaw(number);
 
-	/* Place a leading zero on positive integers. */
+	// Applying a leading zero (positive integer case)
 	if (number > 0) {
 		return `0${binary}`;
 	}
 
-	/* Express negative numbers using the fewest number of bits. */
+	// Negative numbers on the other hand does not have a leading zero(least bits)
 	const invBinary = toBinaryRaw(-1 * number);
 
-	/* Subtract 1 since toBinaryRaw() does not place a leading zero */
+	// As a result, we deduct by 1 here
 	return binary.substring(binary.length - invBinary.length - 1);
 }
 
-/**
- * Converts a binary number to its signed decimal equivalent.
+/*
+ * Binary number to signed decimal number converter
+ * The function below would convert a binary number, with a condition that it has 16 bits or less.
  *
- * This method converts the binary number 10...0 to -2^n, where n is the number of terminal zeroes.
- *
- * Precondition:
- * - The binary number should have less than or equal to 16 bits.
- *
- * @param {string} number Binary number to be converted to its signed decimal equivalent.
- * @returns {number} Decimal equivalent of the binary number.
+ * The value passed is a binary number
+ * The returned value is a signed decimal number.
  */
 function toDecimalRaw(number) {
 	const [decimal] = new Int16Array([`0b${number}`]);
 	return decimal;
 }
 
-/**
- * Converts a binary number to its signed decimal equivalent.
+/*
+ * Binary number to signed decimal number converter(special case)
+ * The function below would convert a binary number or return nothing a blank string if the number is 1, with a condition that it has 16 bits or less.
  *
- * This method converts binary numbers of the form 10...0 to an empty string to prevent ambiguity.
- * The only exception is 1 followed by (`NUM_BITS` - 1) zeroes, which represents the smallest signed integer
- * representable using NUM_BITS bits (`NUM_BITS` is the maximum number of bits supported by this calculator).
- *
- * Precondition:
- * - The binary number should have less than or equal to 16 bits.
- *
- * @param {string} number Binary number to be converted to its signed decimal equivalent.
- * @returns {number} Decimal equivalent of the binary number, or empty string if the binary number is 1.
+ * The value passed is a binary number
+ * The value returned is a signed decimal number (or nothing/blank string if number is 1)
  */
 function toDecimal(number) {
 	if (isAmbiguousCase(number)) {
@@ -91,15 +76,12 @@ function toDecimal(number) {
 	return toDecimalRaw(signExtend(number, MAX_NUM_BITS));
 }
 
-/**
- * Checks if a binary number is of the form 10...0. The only exception is 1 followed by (NUM_BITS - 1) zeroes,
- * which represents the smallest signed integer representable using `NUM_BITS` bits (`NUM_BITS` is the maximum
- * number of bits supported by this calculator).
+/*
+ * Binary number form checker(10..0)
+ * An exception exists though if the number is 1 and the succeeding numbers are bits amount - 1 zeroes
  *
- * @param {string} number Binary number to be checked against the pattern 10...0.
- * @returns {boolean} `true` if the binary number is of the form 10...0; `false`, otherwise. If the binary number is
- * 1 followed by (`NUM_BITS` - 1) zeroes, where `NUM_BITS` is the maximum number of bits supported by this
- * calculator, `false` is returned instead.
+ *  The value passed is a binary number to check for 10..0
+ *  The returned answers are boolean (true for the pattern, false if not OR exceeds the bit amount supported by the app)
  */
 function isAmbiguousCase(number) {
 	let negativeBias = '1';
@@ -112,15 +94,11 @@ function isAmbiguousCase(number) {
 	return pattern.test(number) && number != negativeBias;
 }
 
-/**
- * Performs sign extension on a binary number.
+/*
+ * The function below would do sign extension to binary numbers. (except if the number has more than specified bits)
  *
- * If the binary number has more bits than the specified number of bits, this method returns the number
- * without any modification.
- *
- * @param {string} number Binary number to be sign-extended.
- * @param {number} numBits Number of bits after performing sign extension.
- * @returns {string} Sign-extended equivalent of the given binary number.
+ * The values passed are the number itself and the bits post-extension
+ * The value returned is the number following sign extension
  */
 function signExtend(number, numBits) {
 	const numRemainingBits = numBits - number.length;
@@ -135,26 +113,21 @@ function signExtend(number, numBits) {
 	return signExtended;
 }
 
-/**
- * Truncates a binary number to the specified number of bits, discarding bits at the most significant side.
+/*
+ * The function below would do a truncation to binary numbers to a specified bit amount(most significant side bits removed, unless number is less than specified bit amount))
  *
- * Precondition:
- * - The number of bits in the binary number should be greater than or equal to the specified number of bits.
- *
- * @param {string} number Binary number to be truncated.
- * @param {number} numBits Number of bits after performing truncation.
- * @returns {string} Truncated binary number (with bits at the most significant side discarded).
+ * The values passed are the number itself and the bits post-truncation
+ * The value returned is the number following sign extension
  */
 function truncate(number, numBits) {
 	return number.substring(number.length - numBits);
 }
 
-/**
- * Expresses a binary number in the specified number of bits by performing either sign extension or truncation.
+/*
+ * The function below would do either of the 2 above functions based on bit amount
  *
- * @param {string} number Binary number to be expressed in the specified number of bits.
- * @param {number} numBits Number of bits after performing either sign extension or truncation.
- * @returns {string} Binary number expressed in the specified number of bits.
+ * The values passed are the number itself and the bits post-extension or post-truncation
+ * The value returned is the number following a set bit amount
  */
 function expressInNumBits(number, numBits) {
 	if (number.length > numBits) {
@@ -164,14 +137,11 @@ function expressInNumBits(number, numBits) {
 	return signExtend(number, numBits);
 }
 
-/**
- * Expresses the two binary numbers using an equal number of bits by performing sign extension on the number
- * with fewer bits.
+/*
+ * The function below equalizes 2 numbers in binary with the use of sign extension
  *
- * @param {string} number1 First binary number.
- * @param {string} number2 Second binary number.
- * @returns {array} Array containing the two binary numbers expressed using an equal number of bits after performing
- * sign extension on the number with fewer bits.
+ * The values passed are 2 binary numbers
+ * The value returned is an array with the 2 said numbers (following sign extension on number with lower bit amount)
  */
 function equalizeBits(number1, number2) {
 	const numBitsNumber1 = number1.length;
@@ -182,13 +152,11 @@ function equalizeBits(number1, number2) {
 	return [signExtend(number1, numBits), signExtend(number2, numBits)];
 }
 
-/**
- * Multiplies two decimal numbers and expresses the result as a binary number in the specified number of bits.
+/*
+ * The function below does the main multiplication of 2 numbers (decimal) and gives a binary product with set bit amount
  *
- * @param {number} multiplicandDec Decimal multiplicand.
- * @param {number} multiplierDec Decimal multiplier.
- * @param {number} numBits Number of bits of the product.
- * @returns {string} Product of the two decimal numbers expressed as a binary number in the specified number of bits.
+ * The values passed are the 2 decimal numbers and product bit amount
+ * The value returned is the binary product
  */
 function multiply(multiplicandDec, multiplierDec, numBits) {
 	return expressInNumBits(toBinary(multiplicandDec * multiplierDec), numBits);
