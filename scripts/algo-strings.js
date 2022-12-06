@@ -11,74 +11,33 @@ const algoNames = [`Pencil-and-Paper Method`, `Booth's Algorithm`, `Extended Boo
 
 /* --- TRIVIA HEADER --- */
 /* End with a period (or any other terminal punctuation mark), followed by a space. */
-const pencilTriviaHeader = 'Are We There Yet? ';
-const boothsTriviaHeader = 'From Small Beginnings. ';
-const extendedBoothsTriviaHeader = 'Triple Treat. ';
+const pencilTriviaHeader = '? ';
+const boothsTriviaHeader = '';
+const extendedBoothsTriviaHeader = '';
 
 const triviaHeaders = [pencilTriviaHeader, boothsTriviaHeader, extendedBoothsTriviaHeader];
 
 /* --- TRIVIA --- */
-const pencilTrivia = `Hardware implementations optimize the paper-and-pencil method by adding multiple partial products together in
-    a single cycle, such as Wallace trees&nbsp; 
-    <a class = "no-decor no-hover trivia" href = "https://uma.ac.ir/files/site1/g_zare_3fd00a8/a_suggestion_for_a_fast_multiplier.pdf" target = "_blank">
-    <i class = "fa fa-external-link no-hover"></i></a> and Dadda multipliers&nbsp; 
-    <a class = "no-decor no-hover trivia" href = "https://www.ece.ucdavis.edu/~vojin/CLASSES/EEC280/Web-page/papers/Arithmetic/Dadda_mult.pdf" target = "_blank">
-    <i class = "fa fa-external-link no-hover"></i></a>`;
+const pencilTrivia = ``;
 
-const boothsTrivia = `Originally devised only to optimize signed binary multiplication, Booth's algorithm is now applied in various technologies such as face recognition&nbsp;
-    <a class = "no-decor no-hover trivia" href = "https://ieeexplore.ieee.org/abstract/document/7208966" target = "_blank">
-    <i class = "fa fa-external-link no-hover"></i></a>
-    and digital signal processing&nbsp;
-    <a class = "no-decor no-hover trivia" href = "https://www.researchgate.net/profile/Kuan-Hung-Chen-4/publication/224317087_A_Spurious-Power_Suppression_Technique_for_MultimediaDSP_Applications/links/54ed2ac70cf27fbfd772341e/A-Spurious-Power-Suppression-Technique-for-Multimedia-DSP-Applications.pdf" target = "_blank">
-    <i class = "fa fa-external-link no-hover"></i></a>`;
+const boothsTrivia = ``;
 
-const extendedBoothsTrivia = `In 2008, an extension of Booth's algorithm for multiplying three operands on field-programmable gate arrays (FPGAs) 
-    was proposed by Israeli researchers Y. Ben Asher and E. Stein&nbsp; 
-    <a class = "no-decor no-hover trivia" href = "https://ieeexplore.ieee.org/document/4762411" target = "_blank">
-    <i class = "fa fa-external-link no-hover"></i></a>`;
+const extendedBoothsTrivia = ``;
 
 const trivia = [pencilTrivia, boothsTrivia, extendedBoothsTrivia];
 
 /* --- PENCIL-AND-PAPER ALGORITHM --- */
-const pencilIntro = `Similar to decimal multiplication, the pencil-and-paper method involves multiplying every bit of 
-    the multiplicand by each bit of the multiplier and adding the intermediate products to arrive at the final answer. 
-    However, due to the smaller radix of the binary number system, computing for the intermediate products is much simpler. <br><br>`;
+const pencilIntro = ``;
 
 const pencilStepStrings = [
-	"A. Represent the operands in two's complement.\n\t1. If the user enters a decimal number, it is represented using the fewest number of bits.\n\t2. If the user enters a binary number, the number of bits follows the user's input. \n\n",
-	'B. If necessary, perform sign extension to make the number of bits of the operands equal.\n\n',
-	"\n\nC. Multiply the multiplicand with each digit of the multiplier.\n\t1. Sign-extend the intermediate product until it has the same number of digits as the sum of the number of digits of the multiplicand and multiplier.\n\t2. Similar to decimal pencil-and-paper multiplication, skip one bit after each intermediate product.\n\t3. If the multiplier is negative, add the two's complement of the multiplicand as the last intermediate product.\n\n"
+	
 ];
 
-const pencilStepA = `<div class = "hanging-indent">
-        <b>A.<span class="tab-13"></span>Represent the operands in two's complement.</b>
-    </div>
-    <div class = "indented hanging-indent">
-        1.<span class="tab-13"></span>If the user enters a decimal number, it is represented using the fewest number of bits.
-    </div>
-    <div class = "indented hanging-indent">
-        2.<span class="tab-13"></span>If the user enters a binary number, the number of bits follows the user's input. 
-    </div>`;
+const pencilStepA = ``;
 
-const pencilStepB = `<div class = "hanging-indent">
-        <b>B.<span class="tab-13"></span>If necessary, perform sign extension to make the number of bits of the operands equal.</b>
-    </div>`;
+const pencilStepB = ``;
 
-const pencilStepC = `<div class = "hanging-indent">
-        <b>C.<span class="tab-12"></span>Multiply the multiplicand with each digit of the multiplier.<br></b>
-    </div>
-    <div class = "indented hanging-indent">
-        1.<span class="tab-13"></span>Sign-extend the intermediate product until it has the same number
-        of digits as the sum of the number of digits of the multiplicand and multiplier.
-    </div>
-    <div class = "indented hanging-indent">
-        2.<span class="tab-13"></span>Similar to decimal pencil-and-paper multiplication, skip one bit after each 
-        intermediate product. 
-    </div>
-    <div class = "indented hanging-indent">
-        3.<span class="tab-13"></span>If the multiplier is negative, add the two's complement of the multiplicand as 
-        the last intermediate product. 
-    </div>`;
+const pencilStepC = ``;
 
 const pencilAlgo = `${pencilIntro}
     ${pencilStepA}
@@ -86,55 +45,29 @@ const pencilAlgo = `${pencilIntro}
     ${pencilStepC}`;
 
 /* --- BOOTH'S ALGORITHM --- */
-const boothsIntro = `The Booth's Algorithm is a signed binary multiplication technique that was introduced by Andrew D. Booth in 1951 
-    <a class = "no-decor no-hover trivia" href = "https://academic.oup.com/qjmam/article-abstract/4/2/236/1874893" target = "_blank">
-    <i class = "fa fa-external-link no-hover"></i></a>.
-     Using this technique, two signed binary numbers are multiplied in two's complement notation, and an encoding scheme is employed to simplify the operation and make it more efficient. <br> <br>`;
+const boothsIntro = ``;
 
 const boothsStepStrings = [
-	"A. Represent the operands in two's complement.\n\t1. If the user enters a decimal number, it is represented using the fewest number of bits.\n\t2. If the user enters a binary number, the number of bits follows the user's input. \n\n",
-	'B. If necessary, perform sign extension to make the number of bits of the operands equal.\n\n',
-	"\n\nC. Convert the multiplier to its Booth's equivalent.\n\t1. Append 0 to the least significant bit. \n",
-	'\n\n\t2. Pair and encode two bits starting at the least significant bit.\n',
-	'\n\nD. Multiply using pencil-and-paper method — but ignore the extra step even if the multiplier is negative. \n   Since an adjacent pair of bits is encoded, skip one bit for each intermediate product.\n\n'
+	
 ];
 
-const boothsStepA = `<div class = "hanging-indent">
-        <b>A.<span class="tab-13"></span>Represent the operands in two's complement.</b>
-    </div>
-    <div class = "indented hanging-indent">
-        1.<span class="tab-13"></span>If the user enters a decimal number, it is represented using the fewest number of bits.
-    </div>
-    <div class = "indented hanging-indent">
-        2.<span class="tab-13"></span>If the user enters a binary number, the number of bits follows the user's input. 
-    </div>`;
+const boothsStepA = ``;
 
-const boothsStepB = `<div class = "hanging-indent">
-        <b>B.<span class="tab-13"></span>If necessary, perform sign extension to make the number of bits of the operands equal.</b>
-    </div>`;
+const boothsStepB = ``;
 
-const boothsStepC0 = `<div class = "hanging-indent">
-        <b>C.<span class="tab-13"></span>Convert the multiplier to its Booth's equivalent.</b>
-    </div>`;
+const boothsStepC0 = ``;
 
-const boothsStepC1 = `<div class = "indented hanging-indent">
-        1.<span class="tab-13"></span>Append 0 to the least significant bit.
-    </div>`;
+const boothsStepC1 = ``;
 
-const boothsStepC2 = `<div class = "indented hanging-indent">
-        2.<span class="tab-13"></span>Pair and encode two bits starting at the least significant bit.
-    </div>`;
+const boothsStepC2 = ``;
 
 const boothsStepC = `${boothsStepC0}
     ${boothsStepC1}
     ${boothsStepC2}`;
 
-const boothsStepCShowTable = `<div class = "indented-1">
-        Click <a onclick = "showBoothsRecoding(); scrollToBoothsRecoding();" class = "with-underline no-decor no-hover" id = "show-booths-recording">here</a> 
-        to <span id = "show-hide-booths-recoding">show</span> the encoding table.
-    </div>`;
+const boothsStepCShowTable = ``;
 
-const boothsStepCTableProvision = `<span id = "booths-step-c-table-provision"></span>`;
+const boothsStepCTableProvision = ``;
 
 const boothsStepCTable = `<table class = "indented-2 procedure">
         <tr>
@@ -201,63 +134,30 @@ const boothsAlgo = `${boothsIntro}
     ${boothsStepDTable}`;
 
 /* --- EXTENDED BOOTH'S ALGORITHM --- */
-const extendedBoothsIntro = `Introduced by O.L. MacSorley in 1961 
-    <a class = "no-decor no-hover trivia" href = "https://ieeexplore.ieee.org/document/4066249" target = "_blank">
-    <i class = "fa fa-external-link no-hover"></i></a>
-    and given a streamlined proof by L.P. Rubinfield in 1975 
-    <a class = "no-decor no-hover trivia" href = "https://ieeexplore.ieee.org/document/1672707" target = "_blank">
-    <i class = "fa fa-external-link no-hover"></i></a>, 
-    this technique, which is also known as <b>modified Booth's algorithm</b>, <b>radix-4 Booth's algorithm</b>, or 
-    <b>bit-pair recoding</b>, reduces the number of intermediate summands by half. <br> <br>`;
+const extendedBoothsIntro = ``;
 
 const extendedBoothsStepStrings = [
-	"A. Represent the operands in two's complement.\n\t1. If the user enters a decimal number, it is represented using the fewest number of bits.\n\t2. If the user enters a binary number, the number of bits follows the user's input. \n\n",
-	'B. If necessary, perform sign extension to make the number of bits of the operands equal.\n\n',
-	"\n\nC. Convert the multiplier to its extended Booth's equivalent.\n\t1. Append 0 to the least significant bit. \n",
-	'\n\n\t2. If the multiplier has an odd number of bits (prior to appending 0), perform sign extension. \n',
-	'\n\n\t3. Perform bit-pair recoding starting at the least significant bit.\n',
-	'\n\nD. Multiply using pencil-and-paper method — but ignore the extra step even if the multiplier is negative. \n   Since a bit-pair is equivalent to two bits, skip two bits for each intermediate product.\n\n'
+	
 ];
 
-const extendedBoothsStepA = `<div class = "hanging-indent">
-        <b>A.<span class="tab-13"></span>Represent the operands in two's complement.</b>
-    </div>
-    <div class = "indented hanging-indent">
-        1.<span class="tab-13"></span>If the user enters a decimal number, it is represented using the fewest number of bits.
-    </div>
-    <div class = "indented hanging-indent">
-        2.<span class="tab-13"></span>If the user enters a binary number, the number of bits follows the user's input. 
-    </div>`;
+const extendedBoothsStepA = ``;
 
-const extendedBoothsStepB = `<div class = "hanging-indent">
-        <b>B.<span class="tab-13"></span>If necessary, perform sign extension to make the number of bits of the operands equal.</b>
-    </div>`;
+const extendedBoothsStepB = ``;
 
-const extendedBoothsStepC0 = `<div class = "hanging-indent">
-        <b>C.<span class="tab-13"></span>Convert the multiplier to its extended Booth's equivalent.</b>
-    </div>`;
+const extendedBoothsStepC0 = ``;
 
-const extendedBoothsStepC1 = `<div class = "indented hanging-indent">
-        1.<span class="tab-13"></span>Append 0 to the least significant bit.
-    </div>`;
+const extendedBoothsStepC1 = ``;
 
-const extendedBoothsStepC2 = `<div class = "indented hanging-indent">
-        2.<span class="tab-13"></span>If the multiplier has an odd number of bits (prior to appending 0), perform sign extension.
-    </div>`;
+const extendedBoothsStepC2 = ``;
 
-const extendedBoothsStepC3 = `<div class = "indented hanging-indent">
-        3.<span class="tab-13"></span>Perform bit-pair recoding starting at the least significant bit.
-    </div>`;
+const extendedBoothsStepC3 = ``;
 
 const extendedBoothsStepC = `${extendedBoothsStepC0}
     ${extendedBoothsStepC1}
     ${extendedBoothsStepC2}
     ${extendedBoothsStepC3}`;
 
-const extendedBoothsStepCShowTable = `<div class = "indented-1">
-        Click <a onclick = "showExtendedBoothsRecoding(); scrollToExtendedBoothsRecoding();" class = "with-underline no-decor no-hover" id = "show-extended-booths-recording">here</a> 
-        to <span id = "show-hide-extended-booths-recoding">show</span> the recoding table.
-    </div>`;
+const extendedBoothsStepCShowTable = ``;
 
 const extendedBoothsStepCTableProvision = `<span id = "extended-booths-step-c-table-provision"></span>`;
 

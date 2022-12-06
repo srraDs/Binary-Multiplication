@@ -22,12 +22,12 @@ function decimalToBinary(operand) {
 		/* Enable the submit button and show the trivia if the operands can already be multiplied. */
 		if (canMultiply()) {
 			$('#multiply').attr('disabled', false);
-			showTriviaDiv();
+			
 		}
 
 		/* Do not enable the submit button but show the trivia if all the fields are blank. */
 		if (allFieldsBlank()) {
-			showTriviaDiv();
+			
 		}
 	});
 }
@@ -48,12 +48,12 @@ function binaryToDecimal(operand) {
 		/* Enable the submit button and show the trivia if the operands can already be multiplied. */
 		if (canMultiply()) {
 			$('#multiply').attr('disabled', false);
-			showTriviaDiv();
+			
 		}
 
 		/* Do not enable the submit button but show the trivia if all the fields are blank. */
 		if (allFieldsBlank()) {
-			showTriviaDiv();
+			
 		}
 	});
 }
@@ -93,7 +93,7 @@ function isValidDec(inputField, operand, value) {
 			/* Trap the case where the user pasted an erroneous value (instead of typing it). */
 			$('#' + operand + '-error > p').html(INVALID_DEC);
 			$('#multiply').attr('disabled', true);
-			hideTriviaDiv();
+			
 		}
 
 		return false;
@@ -103,14 +103,14 @@ function isValidDec(inputField, operand, value) {
 	if (parseInt(value) > Math.pow(2, MAX_NUM_BITS - 1) - 1) {
 		$('#' + operand + '-error > p').html(MAX_ERROR);
 		$('#multiply').attr('disabled', true);
-		hideTriviaDiv();
+		
 		return false;
 	}
 
 	if (parseInt(value) < -1 * Math.pow(2, MAX_NUM_BITS - 1)) {
 		$('#' + operand + '-error > p').html(MIN_ERROR);
 		$('#multiply').attr('disabled', true);
-		hideTriviaDiv();
+		
 		return false;
 	}
 
@@ -147,7 +147,7 @@ function isValidBin(inputField, operand, value) {
 			/* Trap the case where the user pasted an erroneous value (instead of typing it). */
 			$('#' + operand + '-error > p').html(INVALID_BIN);
 			$('#multiply').attr('disabled', true);
-			hideTriviaDiv();
+			
 		}
 
 		return false;
@@ -157,7 +157,7 @@ function isValidBin(inputField, operand, value) {
 	if (value.length > MAX_NUM_BITS) {
 		$('#' + operand + '-error > p').html(`${EXCEED_BITS} ${value.length} bits)`);
 		$('#multiply').attr('disabled', true);
-		hideTriviaDiv();
+		
 		return false;
 	}
 
@@ -205,36 +205,7 @@ function canMultiply() {
 	);
 }
 
-/**
- * Hides the trivia below the multiply button.
- */
-function hideTriviaDiv() {
-	/* Remove the scrollbar, and camouflage the font color. */
-	$('#input-numbers').css('overflow-y', 'hidden');
-	$('#trivia-div').css('color', grayBg);
 
-	/* Prevent selection of trivia text. */
-	$('#trivia-div').css('user-select', 'none');
-	$('#trivia-div').css('-moz-user-select', 'none');
-	$('#trivia-div').css('-khtml-user-select', 'none');
-	$('#trivia-div').css('-webkit-user-select', 'none');
-	$('#trivia-div').css('-o-user-select', 'none');
-}
-
-/**
- * Shows the trivia below the multiply button.
- */
-function showTriviaDiv() {
-	/* Reverse the changes resulting from the invocation of hideTriviaDiv(). */
-	$('#input-numbers').css('overflow-y', 'auto');
-	$('#trivia-div').css('color', green);
-
-	$('#trivia-div').css('user-select', 'none');
-	$('#trivia-div').css('-moz-user-select', 'none');
-	$('#trivia-div').css('-khtml-user-select', 'none');
-	$('#trivia-div').css('-webkit-user-select', 'none');
-	$('#trivia-div').css('-o-user-select', 'none');
-}
 
 /**
  * Checks if the all the fields for the operands are blank.
