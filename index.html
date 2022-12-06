@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" media="all" href="css/index.css">
+    <title>Binary Multiplication</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <!-- JS files containing constants and strings. Should be included before all other scripts -->
+		<script src="scripts/constants.js"></script>
+		<script src="scripts/error-strings.js"></script>
+		<script src="scripts/colors.js"></script>
+		<script src="scripts/algo-strings.js"></script>
+
+		<!-- JS files related to behaviors in the header (navigation bar) and footer -->
+		<script src="scripts/animate.js"></script>
+		<script src="scripts/mul-methods.js"></script>
+		<script src="scripts/dropdown.js"></script>
+		<script src="scripts/header.js"></script>
+
+		<!-- JS files related to behaviors in the input section -->
+		<script src="scripts/binary.js"></script>
+		<script src="scripts/focus.js"></script>
+		<script src="scripts/input-util.js"></script>
+		<script src="scripts/input.js"></script>
+
+		<!-- JS files related to behaviors in the demonstration of the multiplication algorithms -->
+		<script src="scripts/pencil-and-paper.js"></script>
+		<script src="scripts/booths.js"></script>
+		<script src="scripts/extended-booths.js"></script>
+
+		<!-- Should be included after the scripts for the multiplication algorithms -->
+		<script src="scripts/demo-util.js"></script>
+		<script src="scripts/demo.js"></script>
+		<script src="scripts/export-util.js"></script>
+		<script src="scripts/export.js"></script>
+
+
+</head>
+<body>
+
+    
+    <!--Top bar -->
+    <div class="topbar">
+        <a id="BM">Binary Multiplication</a>
+
+
+       <!--- <a id="pnp">Pen and Paper</a> -->
+        
+       <div id="pnp" class="hidden mul-methods">
+        <div class="inner">
+            <a class="no-decor">
+                <span id="pencil-text" class="selected">Pencil and Paper</span>
+            </a>
+        </div>
+    </div>
+
+
+
+     <!---  <a id="boothM">Booth's Algorithm</a> -->
+
+
+     <div id="boothM" class="hidden mul-methods">
+        <div class="inner">
+            <a class="no-decor">
+                <span id="booths-text">Booth's</span>
+            </a>
+        </div>
+    </div>
+
+       <!--- <a id="ebm">Extended Booth's Algorithm</a> -->
+
+       <div id="ebm" class="hidden mul-methods">
+        
+        
+            <a class="no-decor">
+                <span id="extended-booths-text">Extended Booth's</span>
+            </a>
+
+       
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="body">
+        <br/><br /><br />
+        <!--Input Field-->
+
+
+		<div id="input-numbers" class="hidden">
+			<form id="input-numbers-dec-bin">
+				<div id="multiplicand-div">
+					<span>Multiplicand</span>
+					<br />
+				</div>
+				<div id="multiplicand-container" class="input-container">
+					<p>
+						<label id="multiplicand-dec-label">
+							Decimal
+							<span class="tab-18"></span>
+						</label>
+						<input
+							type="text"
+							id="multiplicand-dec"
+							autocomplete="off"
+							oninput="isValidDec(this, 'multiplicand', value)"
+						/>
+					</p>
+					<p>
+						<label>Binary</label>
+						<input
+							type="text"
+							id="multiplicand-bin"
+							autocomplete="off"
+							oninput="isValidBin(this, 'multiplicand', value)"
+						/>
+					</p>
+				</div>
+
+				<div class="error" id="multiplicand-error">
+					<p></p>
+				</div>
+
+				<br />
+
+				<div id="multiplier-div">
+					<span>Multiplier</span>
+					<br />
+				</div>
+				<div id="multiplier-container" class="input-container">
+					<p>
+						<label id="multiplier-dec-label">
+							Decimal
+							<span class="tab-18"></span>
+						</label>
+						<input
+							type="text"
+							id="multiplier-dec"
+							autocomplete="off"
+							oninput="isValidDec(this, 'multiplier', value)"
+						/>
+					</p>
+					<p>
+						<label id="multiplier-bin-label">Binary</label>
+						<input
+							type="text"
+							id="multiplier-bin"
+							autocomplete="off"
+							oninput="isValidBin(this, 'multiplier', value)"
+						/>
+					</p>
+				</div>
+
+				<div class="error" id="multiplier-error">
+					<p></p>
+				</div>
+
+				<br />
+
+		
+       
+<!-- Change this !!-->
+
+
+
+                <div class="error" id="multiplier-error">
+					<p></p>
+				</div>
+                <!-- Change this !!-->
+
+                
+					
+				<div id="multiply-div">
+				<div>
+					<button id="multiply" type="button" disabled>MULTIPLY</button>
+				</div>
+			</div>
+
+			<br />
+                
+
+               
+                <!--drop down for step-by-step and all steps-
+                <div class="dropdown">
+                    <button class="dropbtn">Step-by-Step</button>
+                    <div class="dropdown-content">
+                        <a href="#">Step-by-Step</a>
+                        <a href="#">All Steps</a>
+                        
+                    </div>
+                </div>
+			-->
+
+
+			<div id="display-mode" class="hidden">
+				<div class="inner">
+					<div id="display-mode-container">
+						<a class="no-decor">
+							<span id="display-mode-text" tabindex="0">Step by Step</span>
+						</a>
+						&nbsp;
+						<i id="display-mode-dropdown" class="fa fa-caret-down" tabindex="0"></i>
+						&nbsp;
+
+						<div id="display-mode-content">
+							<a class="no-decor">
+								<span id="display-mode-option">Show All Steps</span>
+							</a>
+						</div>
+
+
+
+
+
+
+				<div id="input-values" class="tracking-only">
+					<span id="multiplicand-dec-value"></span>
+					<span id="multiplicand-bin-value"></span>
+					<span id="multiplier-bin-value"></span>
+					<span id="multiplier-dec-value"></span>
+					<span id="multiplier-zero-appended"></span>
+					<span id="multiplier-for-recoding"></span>
+					<span id="booths-recoding"></span>
+					<span id="extended-booths-recoding"></span>
+					<span id="tracking-product"></span>
+					<span id="multiplier-equalized"></span>
+					<span id="multiplicand-equalized"></span>
+					<span id="tracking-summands"></span>
+
+
+
+                </div>
+            </form>
+        </div>
+       
+
+
+
+		<!-- RESULTS AREA (RIGHT SECTION) -->
+		<div id="workspace" class="flex-container">
+			<div id="results" class="hidden">
+				<div id="algo-value" class="tracking-only"></div>
+
+				<div id="algo-name"></div>
+				<div>
+					<p id="algo-steps"></p>
+				</div>
+			</div>
+		</div>
+
+		
+			<!-- FOOTER (BOTTOM SECTION) -->
+			<div id="footer" class="colored flex-container">
+				<div id="about" class="hidden">
+					<div id="about-logo-div" class="inner">
+						<a
+							class="no-decor"
+							href="https://github.com/memgonzales/binary-multiplication"
+							target="_blank"
+						>
+							<img id="about-logo" src="assets/about.png" />
+						</a>
+					</div>
+					<div class="inner">
+						<a
+							class="no-decor no-hover menu"
+							href="https://github.com/memgonzales/binary-multiplication"
+							target="_blank"
+						>
+							<span id="about-text">Browse Repo</span>
+						</a>
+					</div>
+				</div>
+
+
+
+
+
+			<div id="playback-control" class="hidden">
+				<div class="inner">
+					<i id="prev-step" class="fa fa-step-backward" class="play-control"></i>
+					&nbsp;&nbsp;
+					<!-- Only one of these two spans (namely, description and step) will be displayed at any given time. -->
+					<span id="description">Description</span>
+					<span id="step">
+						Step
+						<input id="step-number" type="number" value="1" />
+						of
+						<span id="total-steps">30</span>
+					</span>
+					&nbsp;&nbsp;
+					<i id="next-step" class="fa fa-step-forward" class="play-control"></i>
+				</div>
+			</div>
+
+			<div id="step-number-value">
+				1
+				<span class="material-icons">check_circle_outline</span>
+				<span class="tab-13"></span>
+			</div>
+
+            
+			<div id="save" class="hidden">
+				<div class="inner">
+					<a class="no-decor">
+						<img id="save-logo" src="assets/save.png" />
+					</a>
+				</div>
+				<div class="inner">
+					<a class="no-decor">
+						<span id="save-text">Export Steps to Text File</span>
+					</a>
+				</div>
+			</div>
+            
+		</div>
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+<!---
+
+<div class="inputFields" class = "hidden">
+	<form id="multiplicand-div">
+
+		<div class="inputform">
+		<label for="multiplicand">Multiplicand:</label><br />
+		<label for="multiplicandec">Decimal:</label>
+		<input type="text" id="multiplicandec" name="multiplicandec" autocomplete="off" oninput="isValidDec(this,'multiplicand',value)"><br />
+		<label for="multiplicanbin">Binary: </label>
+
+		<input type="text" id="multiplicandbin" name="multiplicandbin" autocomplete="off" oninput="isValidBin(this,'multiplicand',value)"><br /><br />
+		
+		<!-- Change this !!-
+		<div class="error" id="multiplicand-error">
+			<p></p>
+		</div>
+		<!-- Change this !!
+
+		<label for="multiplier">Multiplier:</label><br/>
+		<label for="multiplierdec">Decimal:</label>
+		<input type="text" id="multiplierdec" name="multiplierdec" autocomplete="off" oninput="isValidDec(this,'multiplier',value)"><br />
+		<label for="multiplierbin">Binary :</label>
+		
+		
+		
+		<input type="text" id="multiplierbin" name="multiplierbin" autocomplete="off" oninput="isValidBin(this,'multiplier',value)" ><br /><br /> -->
