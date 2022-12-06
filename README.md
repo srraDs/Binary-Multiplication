@@ -79,6 +79,8 @@ Figma         | used to visualize |
 
 - Longno, Darren Andrei Cada
   darren_longo@dlsu.edu.ph
+  
+ - Kurt Cabigan
    
    
    
