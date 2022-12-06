@@ -278,7 +278,7 @@ function handleAmbiguousCases() {
 		$('#multiplier-error > p').html(errorMessage);
 	}
 
-	hideTriviaDiv();
+	
 }
 
 /**
