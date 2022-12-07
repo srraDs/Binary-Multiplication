@@ -23,10 +23,6 @@ const pencilStepB = ``;
 
 const pencilStepC = ``;
 
-const pencilAlgo = `
-    ${pencilStepA}
-    ${pencilStepB}
-    ${pencilStepC}`;
 
 /* --- BOOTH'S ALGORITHM --- */
 const boothsIntro = ``;
