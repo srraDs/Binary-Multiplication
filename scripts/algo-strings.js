@@ -23,7 +23,7 @@ const pencilStepB = ``;
 
 const pencilStepC = ``;
 
-const pencilAlgo = `${pencilIntro}
+const pencilAlgo = `
     ${pencilStepA}
     ${pencilStepB}
     ${pencilStepC}`;
@@ -279,7 +279,7 @@ const extendedBoothsAlgo = `${extendedBoothsIntro}
     ${extendedBoothsStepDTable}
     ${extendedBoothsPicture}`;
 
-const algoSteps = [pencilAlgo, boothsAlgo, extendedBoothsAlgo];
+
 
 /* Verification step at the end of every multiplication algorithm demonstration (simulation) */
-const verify = `<span class = "material-icons">check_circle_outline</span><span class = "tab-13"></span><b><u>Verification</u>:</b>`;
+const verify = ``;

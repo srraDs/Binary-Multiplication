@@ -37,7 +37,7 @@ function boothsDescription() {
 	/* 1 refers to the index of the Booth's algorithm. */
 	
 	showAlgoName(1);
-	showAlgoSteps(1);
+	
 }
 
 /**
