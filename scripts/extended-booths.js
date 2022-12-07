@@ -35,7 +35,7 @@ function extendedBoothsInit() {
  */
 function extendedBoothsDescription() {
 	/* 2 refers to the index of the extended Booth's algorithm. */
-	showTrivia(2);
+	
 	showAlgoName(2);
 	showAlgoSteps(2);
 }

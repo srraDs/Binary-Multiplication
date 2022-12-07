@@ -31,7 +31,7 @@ function pencilInit() {
  */
 function pencilDescription() {
 	/* 0 refers to the index of the pencil-and-paper method. */
-	showTrivia(0);
+	
 	showAlgoName(0);
 	showAlgoSteps(0);
 }

@@ -35,7 +35,7 @@ function boothsInit() {
  */
 function boothsDescription() {
 	/* 1 refers to the index of the Booth's algorithm. */
-	showTrivia(1);
+	
 	showAlgoName(1);
 	showAlgoSteps(1);
 }

@@ -98,10 +98,6 @@ function changeColorMulMethod(elems, clickedElem) {
  *
  * @param {number} index Index of the multiplication method with respect to the mulMethods array in header.js.
  */
-function showTrivia(index) {
-	$('#trivia-header').text(triviaHeaders[index]);
-	$('#trivia-body').html(trivia[index]);
-}
 
 /**
  * Displays the algorithm name depending on the multiplication method index.
@@ -146,7 +142,7 @@ function clickMulMethodUtil(elems, clickedElem) {
 	const index = elems.indexOf(clickedElem);
 
 	changeColorMulMethod(elems, clickedElem);
-	showTrivia(index);
+	
 	showAlgoName(index);
 	showAlgoSteps(index);
 
