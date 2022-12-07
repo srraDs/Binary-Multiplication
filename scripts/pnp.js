@@ -1,12 +1,16 @@
 /**
- * File containing the functions for the paper & pencil multiplication
+ * File containing the functions for paper & pen method
  */
 const pencilProductRow = `<tr>
         <th id = "pencil-product-carry-over" class = "no-bold right-align carry-over blurred"></th>
         <td id = "pencil-product" class = "right-align"></td>
     </tr>`;
 
-
+/**
+ * Initializes the results area at the start of the demonstration (simulation) and displays steps A and B.
+ *
+ * Note that the initialization of the step number is handled in the demo() method in demo-util.js.
+ */
 function pencilInit() {
 	$('#algo-name').hide();
 	$('#algo-steps').html(` <br> `);
@@ -23,16 +27,26 @@ function pencilTotalSteps(multiplicandBin, multiplierBin) {
 	const numBits = Math.max(multiplicandBin.length, multiplierBin.length);
 
 	if (multiplierBin[0] == '0') {
+		/* Should be one more than the conditional in the method pencilSteps() */
 		$('#total-steps').text(5 + numBits + 2 * numBits);
 
-	/* Another step is added if the multiplier is negative
+	/* If the multiplier is negative, add another step for adding the two's complement of the multiplicand as 
+	 * an intermediate product.
 	 */
 	} else {
 		$('#total-steps').text(6 + numBits + 2 * numBits);
 	}
 }
 
-
+/**
+ * Displays the multiplicand and multiplier after their number of bits have been equalized, corresponding
+ * to step B.
+ *
+ * @param {string} multiplicandBin Binary multiplicand.
+ * @param {string} multiplierBin Binary multiplier.
+ * @param {string} multiplicand Multiplicand after number of bits has been equalized.
+ * @param {string} multiplier Multiplier after number of bits has been equalized.
+ */
 function pencilDisplayEqualizedBits(
 	multiplicandBin,
 	multiplierBin,
@@ -44,7 +58,7 @@ function pencilDisplayEqualizedBits(
 	let multiplicandFormatted = multiplicand;
 	let multiplierFormatted = multiplier;
 
-	// formatted/equalized values for exporting
+	/* Store formatted values in hidden spans for export use. */
 	$('#multiplicand-equalized').text(multiplicandFormatted);
 	$('#multiplier-equalized').text(multiplierFormatted);
 
@@ -87,7 +101,23 @@ function pencilDisplayEqualizedBits(
 	incrementstep();
 }
 
+/**
+ * Displays step C.
+ *
+ */
 
+/**
+ * Displays the pencil-and-paper multiplication of the multiplicand and the multiplier,
+ * corresponding to step C.
+ *
+ * @param {number} displayNumber Step number relative to the pencil-and-paper multiplication.
+ * @param {string} multiplicand Multiplicand after number of bits has been equalized.
+ * @param {number} multiplicandDec Decimal multiplicand.
+ * @param {number} multiplierDec Decimal multiplier.
+ * @param {string} multiplierFull Multiplier after number of bits has been equalized.
+ * @param {number} carry Carry of the current addition step.
+ * @returns {string} Binary product.
+ */
  function pencilPencil(
 	displayNumber,
 	multiplicand,
@@ -96,10 +126,10 @@ function pencilDisplayEqualizedBits(
 	multiplierFull,
 	carry
 ) {
-	let summands = []; 
-	let summandsFormatted = []; 
-	let multiplierDisplay = []; 
-	let currentCarry = carry;	
+	let summands = []; /* Summands (without format) */
+	let summandsFormatted = []; /* Summands (with format) */
+	let multiplierDisplay = []; /* Multiplier (with format) */
+	let currentCarry = carry;	/* Carry of the current addition step */
 
 	/* Multiplier (without format) */
 	const multiplierArray = multiplierFull.trim().split('').reverse();
@@ -160,7 +190,9 @@ function pencilDisplayEqualizedBits(
 	let numSummands = multiplierArray.length;
 	let offset = 0;
 
-	
+	/* If the multiplier is negative, the number of summands, and subsequently the number of steps, is 
+	 * increased by 1.
+	 */
 	if (multiplierFull[0] == '1') {
 		numSummands = numSummands + 1;
 		offset = 1;
@@ -169,11 +201,18 @@ function pencilDisplayEqualizedBits(
 	const product = multiply(multiplicandDec, multiplierDec, numBitsProduct); /* Without format */
 	const productDisplay = formatProductDisplay(product); /* With format */
 
-	
+	/*
+	 * If it is the first step in the recoding, append the template first.
+	 * Otherwise, it suffices to modify the existing template.
+	 */
 	if (displayNumber == 0) {
 		appendTemplate(template);
 	} else if (displayNumber <= numSummands) {
-		
+		/*
+		 * If it is the last intermediate summand:
+		 * - Add a bottom border to the appended row (to separate the summands from the product).
+		 * - Include a right-aligned plus sign (first cell of the appended row).
+		 */
 		if (displayNumber == numSummands) {
 			addlRow = `<tr class = "summands bottom-border">
                     <th class = "no-bold right-align">+</th>
@@ -194,7 +233,10 @@ function pencilDisplayEqualizedBits(
 		/* Remove the highlight of the previous summand (thus, subtract 2 from the step number). */
 		$(`#pencil-summands-${displayNumber - 2}`).html(`${summands[displayNumber - 2]}`);
 	} else if (displayNumber <= multiplierArray.length + numBitsProduct + offset) {
-		
+		/*
+		 * Compute for the total of the bit column being summed.
+		 * Calculate the index so that the rightmost bit column is processed first.
+		 */
 		const index = numBitsProduct - (displayNumber - multiplierArray.length - offset);
 		let total = currentCarry;
 		for (let i = 0; i < numSummands; i++) {
@@ -208,7 +250,12 @@ function pencilDisplayEqualizedBits(
 		/* Compute for the carry based on the sum of the bit column. */
 		currentCarry = Math.floor(total / 2);
 
-		
+		/*
+		 * If it is the least significant bit of the product:
+		 * - Remove the highlight of the multiplicand and multiplier.
+		 * - Display the carryover.
+		 * - Append the row for displaying the product.
+		 */
 		if (displayNumber == multiplierArray.length + 1 + offset) {
 			$('#step-c-pencil-multiplicand').html(`${multiplicand}`);
 			$('#step-c-pencil-display').html(`${multiplierFull}`);
@@ -219,7 +266,10 @@ function pencilDisplayEqualizedBits(
 
 			appendRow('pencil-pencil-table', `${pencilProductRow}`);
 		} else if (displayNumber == multiplierArray.length + numBitsProduct + offset) {
-			
+			/*
+			 * If it is the most significant bit of the product, display the final carry-over at the cell
+			 * to the left of the product.
+			 */
 			if (currentCarry >= 1) {
 				$('#pencil-product-carry-over').text(toBinaryRaw(currentCarry));
 			}
@@ -228,7 +278,10 @@ function pencilDisplayEqualizedBits(
 		/* Update the carry-over after summation of each bit column. */
 		$('#pencil-carry-over').text(toBinaryRaw(currentCarry));
 
-		
+		/*
+		 * Highlight the bit column being summed.
+		 * Calculate the index so that the rightmost bit column is highlighted first.
+		 */
 		for (let i = 0; i < numSummands; i++) {
 			const summand = $(`#pencil-summands-${i}`).text();
 			let summandFormatted = '';
@@ -274,7 +327,14 @@ function pencilDisplayEqualizedBits(
 	return [product, currentCarry];
 }
 
-
+/**
+ * Displays the verification step.
+ *
+ * @param {string} multiplicandDec Decimal multiplicand.
+ * @param {string} multiplierDec Decimal multiplier.
+ * @param {string} product Binary product.
+ * @param {number} numSummands Number of intermediate summands.
+ */
 function pencilVerify(multiplicandDec, multiplierDec, product, numSummands) {
 	const productDec = multiplicandDec * multiplierDec;
 	const doubleCheck = `${multiplicandDec}<sub>10</sub><span class = "tab-9"></span>&times;<span class = "tab-9"></span>${multiplierDec}<sub>10</sub><span class = "tab-10"></span>=<span class = "tab-10"></span>${productDec}<sub>10</sub><span class = "tab-10"></span>=<span class = "tab-10"></span><span class = "final-answer">${product}<sub>2</sub></span><br>`;
@@ -297,7 +357,13 @@ function pencilVerify(multiplicandDec, multiplierDec, product, numSummands) {
 	incrementstep();
 }
 
-mber} multiplierDec Decimal multiplier.
+/**
+ * Handles which step in the demonstration (simulation) is displayed.
+ *
+ * @param {string} multiplicandBin Binary multiplicand.
+ * @param {string} multiplierBin Binary multiplier.
+ * @param {number} multiplicandDec Decimal multiplicand.
+ * @param {number} multiplierDec Decimal multiplier.
  */
  function pencilSteps(multiplicandBin, multiplierBin, multiplicandDec, multiplierDec) {
 	/* Equalize the number of bits of the operands. */
@@ -316,7 +382,9 @@ mber} multiplierDec Decimal multiplier.
 	$('#next-step').on('click', function () {
 		withPreviousAndNextStep();
 
-		
+		/* Add one to the step number conditionals for the pencil-and-paper computation proper if the 
+		 * multiplier is negative.
+		 */
 		let offset = 0;
 		if (multiplierBin[0] == '1') {
 			offset = 1;
@@ -338,7 +406,15 @@ mber} multiplierDec Decimal multiplier.
 			} else if (stepNumber == 2) {
 				incrementstep();
 		    } else if (stepNumber <= offset + 3 + multiplier.length + 2 * multiplier.length) {
-				
+				/*
+				 * The number of steps taken is one more than the number of bits in the multiplier plus the number
+				 * of bits in the product.
+				 *
+				 * The additional step comes from the display of the multiplication statement (prior to performing
+				 * pencil-and-paper method).
+				 *
+				 * The first argument refers to the step number relative to the pencil-and-paper method.
+				 */
 				[product, carry] = pencilPencil(
 					stepNumber - 3,
 					multiplicand,
@@ -374,12 +450,20 @@ mber} multiplierDec Decimal multiplier.
 	
 }
 
-
+/**
+ * Returns to the previous displayed step when the previous button is clicked.
+ *
+ * @param {string} multiplicandBin Binary multiplicand.
+ * @param {string} multiplierBin Binary multiplier.
+ */
 function pencilRewind(multiplicandBin, multiplierBin) {
 	$('#prev-step').on('click', function () {
 		withPreviousAndNextStep();
 
-		
+		/*
+		 * Subtract 2 since the pencilSteps() method triggers the displayed step based on the previous
+		 * value of the step number.
+		 */
 		if ($('#step-number-value').text() == 1) {
 			pencilGoToStep0();
 		} else {
@@ -392,14 +476,22 @@ function pencilRewind(multiplicandBin, multiplierBin) {
 	});
 }
 
-
+/**
+ * Changes the displayed step depending on the step number entered in the input field.
+ *
+ * @param {string} multiplicandBin Binary multiplicand.
+ * @param {string} multiplierBin Binary multiplier.
+ */
 function pencilGoToStep(multiplicandBin, multiplierBin) {
 	/* Trigger the change when the enter key is pressed. */
 	$('#step-number').on('keyup', function (e) {
 		if (e.code == 'Enter') {
 			withPreviousAndNextStep();
 
-			
+			/*
+			 * Subtract 1 since the pencilSteps() method triggers the displayed step based on the previous
+			 * value of the step number.
+			 */
 			if ($('#step-number').val() == 0) {
 				pencilGoToStep0();
 			} else {
@@ -418,7 +510,9 @@ function pencilGoToStep(multiplicandBin, multiplierBin) {
 	});
 }
 
-
+/**
+ * Returns to the description of the algorithm (step 0).
+ */
 function pencilGoToStep0() {
 	initStepNumber(0);
 	pencilDescription();
@@ -429,7 +523,13 @@ function pencilGoToStep0() {
 	window.scrollTo(0, 0);
 }
 
-
+/**
+ * Changes the displayed step depending on the specified step number.
+ *
+ * @param {number} stepNumber Step number.
+ * @param {string} multiplicandBin Binary multiplicand.
+ * @param {string} multiplierBin Binary multiplier.
+ */
 function pencilGoTo(stepNumber, multiplicandBin, multiplierBin) {
 	/* Return to the first step, and repeatedly trigger the click (next step) event to change the displayed step. */
 	pencilInit();
@@ -448,7 +548,14 @@ function pencilGoTo(stepNumber, multiplicandBin, multiplierBin) {
 	}
 }
 
-
+/**
+ * Handles the demonstration (simulation) of the pencil-and-paper method.
+ *
+ * @param {string} multiplicandBin Binary multiplicand.
+ * @param {string} multiplierBin Binary multiplier.
+ * @param {number} multiplicandDec Decimal multiplicand.
+ * @param {number} multiplierDec Decimal multiplier.
+ */
 function pencilDemo(multiplicandBin, multiplierBin, multiplicandDec, multiplierDec) {
 	pencilInit();
 	pencilTotalSteps(multiplicandBin, multiplierBin);
