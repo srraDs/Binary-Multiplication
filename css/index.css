@@ -122,3 +122,13 @@ button:hover{
     background-color: rgb(19, 34, 53);
     color: aliceblue;
 }
+#input-values{
+    margin-left: 10%;
+    border: 1px solid black;
+    margin-right: 10%;
+}
+#workspace {
+    margin-left: 10%;
+    border: 1px solid black;
+    margin-right: 10%;
+}
