@@ -77,15 +77,10 @@ const boothsStepCTable = `<table class = "indented-2 procedure">
     </table>`;
 
 const boothsStepD = `<div class = "hanging-indent">
-        <b>D.<span class="tab-12"></span>Multiply using pencil-and-paper method &mdash; but ignore the extra step even if the multiplier 
-        is negative.<br>
-        Since an adjacent pair of bits is encoded, skip <u>one</u> bit for each 
-        intermediate product.</b>
+        
     </div>`;
 
 const boothsStepDShowTable = `<div class = "indented-0 small-top-space">
-        Click <a onclick = "showBoothsOperations(); scrollToBoothsOperations();" class = "with-underline no-decor no-hover" id = "show-booths-recording">here</a> 
-        to <span id = "show-hide-booths-operations">show</span> the multiplication guide.
     </div>`;
 
 const boothsStepDTableProvision = `<span id = "booths-step-d-table-provision"></span>`;
