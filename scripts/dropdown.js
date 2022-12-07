@@ -23,23 +23,6 @@ function hoverDropdownUtil(elem, color) {
  *
  * @param {string} elem Display mode.
  */
-function hoverDropdown(elem) {
-	$('#' + elem + '-text').on('mouseover', function () {
-		hoverDropdownUtil(elem, yellow);
-	});
-
-	$('#' + elem + '-text').on('mouseout', function () {
-		hoverDropdownUtil(elem, white);
-	});
-
-	$('#' + elem + '-dropdown').on('mouseover', function () {
-		hoverDropdownUtil(elem, yellow);
-	});
-
-	$('#' + elem + '-dropdown').on('mouseout', function () {
-		hoverDropdownUtil(elem, white);
-	});
-}
 
 /**
  * Toggles the visibility of the display mode dropdown content.

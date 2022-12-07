@@ -26,7 +26,7 @@ const boothsRecodeMap = new Map();
  */
 function boothsInit() {
 	$('#algo-name').hide();
-	$('#algo-steps').html(`${boothsStepA}<br>${boothsStepB}`);
+	$('#algo-steps').html(`<br>`);
 }
 
 /**
@@ -129,15 +129,15 @@ function boothsDisplayEqualizedBits(
 	const contents = $('#algo-steps').html();
 	$('#algo-steps').html(`${contents}${template}`);
 
-	incrementStepNumber();
+	incrementstep();
 }
 
 /**
  * Displays the header along with the first substep of step C.
  */
 function boothsDisplayStepC01() {
-	appendTemplate(`${boothsStepC0}${boothsStepC1}`);
-	incrementStepNumber();
+	appendTemplate(``);
+	incrementstep();
 }
 
 /**
@@ -162,7 +162,7 @@ function boothsAppendZero(multiplierZeroAppended) {
         </div><br>`;
 
 	appendTemplate(template);
-	incrementStepNumber();
+	incrementstep();
 }
 
 /**
@@ -170,9 +170,9 @@ function boothsAppendZero(multiplierZeroAppended) {
  */
 function boothsDisplayStepC2() {
 	appendTemplate(
-		`${boothsStepC2}${boothsStepCShowTable}${boothsStepCTableProvision}`
+		``
 	);
-	incrementStepNumber();
+	incrementstep();
 }
 
 /**
@@ -249,7 +249,7 @@ function boothsRecode(recodeNumber, multiplierForRecoding) {
 		$('#booths-demo-box-recoding').html(templateNoDiv);
 	}
 
-	incrementStepNumber();
+	incrementstep();
 
 	/* Return the Booth's equivalent of the multiplier. */
 	return boothsArray[boothsArray.length - 1];
@@ -260,7 +260,7 @@ function boothsRecode(recodeNumber, multiplierForRecoding) {
  */
 function showBoothsRecoding() {
 	if ($('#booths-step-c-table-provision').html() == '') {
-		$('#booths-step-c-table-provision').html(`${boothsStepCTable}`);
+		$('#booths-step-c-table-provision').html(``);
 		$('#show-hide-booths-recoding').text('hide');
 	} else {
 		$('#booths-step-c-table-provision').html('');
@@ -276,14 +276,14 @@ function showBoothsRecoding() {
  */
 function boothsDisplayStepD(multiplierForRecoding, boothsRecoding) {
 	appendTemplate(
-		`${boothsStepD}${boothsStepDShowTable}${boothsStepDTableProvision}`
+		``
 	);
 
 	/* Remove the highlights from the previous step. */
 	$('#modified-multiplier').text(multiplierForRecoding);
 	$('#booths-display').text(boothsRecoding);
 
-	incrementStepNumber();
+	incrementstep();
 }
 
 /**
@@ -480,10 +480,10 @@ function boothsPencil(
 		}
 	}
 
-	$('#tracking-summands').text(tempSummands);
+	$('#summands').text(tempSummands);
 	$('#tracking-product').text(product);
 
-	incrementStepNumber();
+	incrementstep();
 
 	/* Return the binary product. */
 	return [product, currentCarry];
@@ -494,7 +494,7 @@ function boothsPencil(
  */
 function showBoothsOperations() {
 	if ($('#booths-step-d-table-provision').html() == '') {
-		$('#booths-step-d-table-provision').html(`${boothsStepDTable}`);
+		$('#booths-step-d-table-provision').html(``);
 		$('#show-hide-booths-operations').text('hide');
 	} else {
 		$('#booths-step-d-table-provision').html('');
@@ -514,7 +514,7 @@ function boothsVerify(multiplicandDec, multiplierDec, product, numSummands) {
 	const productDec = multiplicandDec * multiplierDec;
 	const doubleCheck = `${multiplicandDec}<sub>10</sub><span class = "tab-9"></span>&times;<span class = "tab-9"></span>${multiplierDec}<sub>10</sub><span class = "tab-10"></span>=<span class = "tab-10"></span>${productDec}<sub>10</sub><span class = "tab-10"></span>=<span class = "tab-10"></span><span class = "final-answer">${product}<sub>2</sub></span><br>`;
 
-	appendTemplate(`${verify}<span class = "tab-13"></span>${doubleCheck}`);
+	appendTemplate(`<span class = "tab-13"></span>${doubleCheck}`);
 
 	/* Hide the carry-over and remove the highlights from the previous step. */
 	hideCarryOver();
@@ -524,7 +524,7 @@ function boothsVerify(multiplicandDec, multiplierDec, product, numSummands) {
 
 	$('#booths-product b').addClass('remove-emphasis');
 
-	incrementStepNumber();
+	incrementstep();
 }
 
 /**
@@ -563,7 +563,7 @@ function boothsSteps(multiplicandBin, multiplierBin, multiplicandDec, multiplier
 		withPreviousAndNextStep();
 
 		/* Check if the selected multiplication method is the Booth's algorithm. */
-		if (checkMulMethod(algoNames[1])) {
+		if (checkMulMethod(algs[1])) {
 			const stepNumber = parseInt($('#step-number-value').text());
 			if (stepNumber == 0) {
 				boothsInit();
@@ -639,7 +639,7 @@ function boothsSteps(multiplicandBin, multiplierBin, multiplicandDec, multiplier
 					carry
 				);
 
-	decrementStepNumber();
+	decrementstep();
 
 	$('#multiplier-zero-appended').text(multiplierZeroAppended);
 	$('#multiplier-for-recoding').text(multiplierForRecoding);

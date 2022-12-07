@@ -26,7 +26,7 @@ const recodeMap = new Map();
  */
 function extendedBoothsInit() {
 	$('#algo-name').hide();
-	$('#algo-steps').html(`${extendedBoothsStepA}<br>${extendedBoothsStepB}`);
+	$('#algo-steps').html(`<br>`);
 }
 
 /**
@@ -34,10 +34,9 @@ function extendedBoothsInit() {
  * the description of the algorithm.
  */
 function extendedBoothsDescription() {
-	/* 2 refers to the index of the extended Booth's algorithm. */
-	
-	showAlgoName(2);
-	showAlgoSteps(2);
+	$('#algo-name').text(algs[2]);
+	$('#algo-name').show();
+	$('#algo-value').text(algs[2]);
 }
 
 /**
@@ -138,15 +137,15 @@ function extendedBoothsDisplayEqualizedBits(
 	const contents = $('#algo-steps').html();
 	$('#algo-steps').html(`${contents}${template}`);
 
-	incrementStepNumber();
+	incrementstep();
 }
 
 /**
  * Displays the first substep of step C.
  */
 function extendedBoothsDisplayStepC01() {
-	appendTemplate(`${extendedBoothsStepC0}${extendedBoothsStepC1}`);
-	incrementStepNumber();
+	appendTemplate(``);
+	incrementstep();
 }
 
 /**
@@ -171,15 +170,15 @@ function extendedBoothsAppendZero(multiplierZeroAppended) {
         </div><br>`;
 
 	appendTemplate(template);
-	incrementStepNumber();
+	incrementstep();
 }
 
 /**
  * Displays the second substep of step C.
  */
 function extendedBoothsDisplayStepC2() {
-	appendTemplate(`${extendedBoothsStepC2}`);
-	incrementStepNumber();
+	appendTemplate(``);
+	incrementstep();
 }
 
 /**
@@ -214,7 +213,7 @@ function extendedBoothsOddSignExtend(multiplier, multiplierForRecoding) {
         </div><br>`;
 
 	appendTemplate(template);
-	incrementStepNumber();
+	incrementstep();
 }
 
 /**
@@ -222,9 +221,9 @@ function extendedBoothsOddSignExtend(multiplier, multiplierForRecoding) {
  */
 function extendedBoothsDisplayStepC3() {
 	appendTemplate(
-		`${extendedBoothsStepC3}${extendedBoothsStepCShowTable}${extendedBoothsStepCTableProvision}`
+		``
 	);
-	incrementStepNumber();
+	incrementstep();
 }
 
 /**
@@ -304,7 +303,7 @@ function extendedBoothsRecode(recodeNumber, multiplierForRecoding) {
 		$('#extended-booths-demo-box-recoding').html(templateNoDiv);
 	}
 
-	incrementStepNumber();
+	incrementstep();
 
 	/* Return the extended Booth's equivalent of the multiplier. */
 	return extendedBoothsArray[extendedBoothsArray.length - 1];
@@ -315,7 +314,7 @@ function extendedBoothsRecode(recodeNumber, multiplierForRecoding) {
  */
 function showExtendedBoothsRecoding() {
 	if ($('#extended-booths-step-c-table-provision').html() == '') {
-		$('#extended-booths-step-c-table-provision').html(`${extendedBoothsStepCTable}`);
+		$('#extended-booths-step-c-table-provision').html(``);
 		$('#show-hide-extended-booths-recoding').text('hide');
 	} else {
 		$('#extended-booths-step-c-table-provision').html('');
@@ -332,14 +331,14 @@ function showExtendedBoothsRecoding() {
  */
 function extendedBoothsDisplayStepD(multiplierForRecoding, extendedBoothsRecoding) {
 	appendTemplate(
-		`${extendedBoothsStepD}${extendedBoothsStepDShowTable}${extendedBoothsStepDTableProvision}`
+		``
 	);
 
 	/* Remove the highlights from the previous step. */
 	$('#modified-multiplier').text(multiplierForRecoding);
 	$('#extended-booths-display').text(extendedBoothsRecoding);
 
-	incrementStepNumber();
+	incrementstep();
 }
 
 /**
@@ -536,9 +535,9 @@ function extendedBoothsPencil(
 		}
 	}
 
-	$('#tracking-summands').text(tempSummands);
+	$('#summands').text(tempSummands);
 
-	incrementStepNumber();
+	incrementstep();
 
 	/* Return the binary product. */
 	return [product, currentCarry];
@@ -549,7 +548,7 @@ function extendedBoothsPencil(
  */
 function showExtendedBoothsOperations() {
 	if ($('#extended-booths-step-d-table-provision').html() == '') {
-		$('#extended-booths-step-d-table-provision').html(`${extendedBoothsStepDTable}`);
+		$('#extended-booths-step-d-table-provision').html(``);
 		$('#show-hide-extended-booths-operations').text('hide');
 	} else {
 		$('#extended-booths-step-d-table-provision').html('');
@@ -569,7 +568,7 @@ function extendedBoothsVerify(multiplicandDec, multiplierDec, product, numSumman
 	const productDec = multiplicandDec * multiplierDec;
 	const doubleCheck = `${multiplicandDec}<sub>10</sub><span class = "tab-9"></span>&times;<span class = "tab-9"></span>${multiplierDec}<sub>10</sub><span class = "tab-10"></span>=<span class = "tab-10"></span>${productDec}<sub>10</sub><span class = "tab-10"></span>=<span class = "tab-10"></span><span class = "final-answer">${product}<sub>2</sub></span><br>`;
 
-	appendTemplate(`${verify}<span class = "tab-13"></span>${doubleCheck}`);
+	appendTemplate(`<span class = "tab-13"></span>${doubleCheck}`);
 
 	/* Hide the carry-over and remove the highlights from the previous step. */
 	hideCarryOver();
@@ -579,7 +578,7 @@ function extendedBoothsVerify(multiplicandDec, multiplierDec, product, numSumman
 
 	$('#extended-booths-product b').addClass('remove-emphasis');
 
-	incrementStepNumber();
+	incrementstep();
 }
 
 /**
@@ -624,7 +623,7 @@ function extendedBoothsSteps(multiplicandBin, multiplierBin, multiplicandDec, mu
 		withPreviousAndNextStep();
 
 		/* Check if the selected multiplication method is the extended Booth's algorithm. */
-		if (checkMulMethod(algoNames[2])) {
+		if (checkMulMethod(algs[2])) {
 			const stepNumber = parseInt($('#step-number-value').text());
 			if (stepNumber == 0) {
 				extendedBoothsInit();
@@ -712,7 +711,7 @@ function extendedBoothsSteps(multiplicandBin, multiplierBin, multiplicandDec, mu
 					carry
 				);
 
-	decrementStepNumber();
+	decrementstep();
 	
 	$('#multiplier-zero-appended').text(multiplierZeroAppended);
 	$('#multiplier-for-recoding').text(multiplierForRecoding);

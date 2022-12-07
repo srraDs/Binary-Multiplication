@@ -26,9 +26,9 @@ function toBinaryRaw(number) {
  */
 function toBinary(number) {
 	// The existing special case(-2^n-1)
-	if (number == -1 * Math.pow(2, MAX_NUM_BITS - 1)) {
+	if (number == -1 * Math.pow(2, 15)) {
 		let minBinary = '1';
-		for (let i = 0; i < MAX_NUM_BITS - 1; i++) {
+		for (let i = 0; i < 15; i++) {
 			minBinary = `${minBinary}0`;
 		}
 
@@ -73,7 +73,7 @@ function toDecimal(number) {
 		return '';
 	}
 
-	return toDecimalRaw(signExtend(number, MAX_NUM_BITS));
+	return toDecimalRaw(signExtend(number, 16));
 }
 
 /*
@@ -85,7 +85,7 @@ function toDecimal(number) {
  */
 function isAmbiguousCase(number) {
 	let negativeBias = '1';
-	for (let i = 0; i < MAX_NUM_BITS - 1; i++) {
+	for (let i = 0; i < 15; i++) {
 		negativeBias = `${negativeBias}0`;
 	}
 

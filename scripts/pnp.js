@@ -1,12 +1,4 @@
 /**
- * File containing the utility functions for the demonstration (simulation) of the pencil-and-paper method.
- *
- * For horizontal spacing, use the .tab-n (where n is a natural number) classes found in style.css,
- * as seen in the strings related to the pencil-and-paper method. Avoid using consecutive &nbsp;
- * since these clutter the text included when the user performs a selection.
- */
-
-/**
  * Row where the product is displayed (final steps of pencil-and-paper demonstration/simulation).
  */
 const pencilProductRow = `<tr>
@@ -21,29 +13,16 @@ const pencilProductRow = `<tr>
  */
 function pencilInit() {
 	$('#algo-name').hide();
-	$('#algo-steps').html(`${pencilStepA}<br>${pencilStepB}`);
-	incrementStepNumber();
+	$('#algo-steps').html(` <br> `);
+	incrementstep();
 }
 
-/**
- * Initializes the results area at the start of the demonstration (simulation) and displays
- * the description of the algorithm.
- */
 function pencilDescription() {
-	/* 0 refers to the index of the pencil-and-paper method. */
-	
-	showAlgoName(0);
-	showAlgoSteps(0);
+	$('#algo-name').text(algs[0]);
+	$('#algo-name').show();
+	$('#algo-value').text(algs[0]);
 }
 
-/**
- * Initializes the total number of steps.
- *
- * Note that the initialization of the step number is handled in the demo() method in demo-util.js.
- *
- * @param {string} multiplicandBin Binary multiplicand.
- * @param {string} multiplierBin Binary multiplier.
- */
 function pencilTotalSteps(multiplicandBin, multiplierBin) {
 	const numBits = Math.max(multiplicandBin.length, multiplierBin.length);
 
@@ -119,20 +98,13 @@ function pencilDisplayEqualizedBits(
 	const contents = $('#algo-steps').html();
 	$('#algo-steps').html(`${contents}${template}`);
 
-	incrementStepNumber();
+	incrementstep();
 }
 
 /**
  * Displays step C.
  *
  */
-function pencilDisplayStepC() {
-	appendTemplate(
-		`${pencilStepC}`
-	);
-
-	incrementStepNumber();
-}
 
 /**
  * Displays the pencil-and-paper multiplication of the multiplicand and the multiplier,
@@ -345,11 +317,9 @@ function pencilDisplayStepC() {
 		}
 	}
 
-	$('#tracking-summands').text(tempSummands);
+	$('#summands').text(tempSummands);
 
-	incrementStepNumber();
-
-	console.log("product = " + product);
+	incrementstep();
 
 	$('#tracking-product').text(product);
 
@@ -369,7 +339,7 @@ function pencilVerify(multiplicandDec, multiplierDec, product, numSummands) {
 	const productDec = multiplicandDec * multiplierDec;
 	const doubleCheck = `${multiplicandDec}<sub>10</sub><span class = "tab-9"></span>&times;<span class = "tab-9"></span>${multiplierDec}<sub>10</sub><span class = "tab-10"></span>=<span class = "tab-10"></span>${productDec}<sub>10</sub><span class = "tab-10"></span>=<span class = "tab-10"></span><span class = "final-answer">${product}<sub>2</sub></span><br>`;
 
-	appendTemplate(`${verify}<span class = "tab-13"></span>${doubleCheck}`);
+	appendTemplate(`<span class = "tab-13"></span>${doubleCheck}`);
 
 	/* If the multiplier is negative, the number of summands is increased by 1. */
 	if (parseInt(multiplierDec) < 0) {
@@ -384,7 +354,7 @@ function pencilVerify(multiplicandDec, multiplierDec, product, numSummands) {
 
 	$('#pencil-product b').addClass('remove-emphasis');
 
-	incrementStepNumber();
+	incrementstep();
 }
 
 /**
@@ -421,7 +391,7 @@ function pencilVerify(multiplicandDec, multiplierDec, product, numSummands) {
 		}
 
 		/* Check if the selected multiplication method is the pencil-and-paper method. */
-		if (checkMulMethod(algoNames[0])) {
+		if (checkMulMethod(algs[0])) {
 			const stepNumber = parseInt($('#step-number-value').text());
 			if (stepNumber == 0) {
 				pencilInit();
@@ -434,7 +404,7 @@ function pencilVerify(multiplicandDec, multiplierDec, product, numSummands) {
 					multiplier
 				);
 			} else if (stepNumber == 2) {
-			 	pencilDisplayStepC();
+				incrementstep();
 		    } else if (stepNumber <= offset + 3 + multiplier.length + 2 * multiplier.length) {
 				/*
 				 * The number of steps taken is one more than the number of bits in the multiplier plus the number
@@ -475,7 +445,7 @@ function pencilVerify(multiplicandDec, multiplierDec, product, numSummands) {
 					carry
 				);
 
-	decrementStepNumber();
+	decrementstep();
 
 	
 }
