@@ -23,20 +23,7 @@ function checkMulMethod(mulMethod) {
 	return $('#algo-value').text() == mulMethod;
 }
 
-/**
- * Highlights the non-sign-extended portion of the product (that is, the least significant bits excluding the
- * sign extension).
- *
- * For example, if the product is 0000101, 0101 is highlighted.
- *
- * Precondition:
- * - The multiplier is 0, -1, 1, 2, or -2.
- *
- * @param {string} multiplicandBin Binary multiplicand.
- * @param {number} multiplierDec Decimal multiplier.
- * @param {string} product Binary product.
- * @returns {string} Product with the non-sign-extended portion highlighted.
- */
+
 function emphasizeProduct(multiplicandBin, multiplierDec, product) {
 	let formattedProduct = product;
 	let numBits = multiplicandBin.length;
@@ -62,33 +49,22 @@ function emphasizeProduct(multiplicandBin, multiplierDec, product) {
 			)}</b>`;
 			break;
 		default:
-			/* Should not cascade here */
 			break;
 	}
 
 	return formattedProduct;
 }
 
-/**
- * Hides the carry-over in pencil-and-paper simulation.
- */
+
 function hideCarryOver() {
 	$('.carry-over b').css('display', 'none');
 	$('.carry-over span').css('display', 'none');
 }
 
-/**
- * Constructs an array with each element corresponding to the product with one bit highlighted.
- *
- * For example, if the product is 001, the returned array is [00*1*, 0*0*1, *0*01], with the bit enclosed
- * in asterisks referring to the highlighted bit.
- *
- * @param {string} product Binary product.
- * @returns {array} Array with each element corresponding to the product with one bit highlighted.
- */
+
 function formatProductDisplay(product) {
-	let productDisplay = []; /* With highlighted bits */
-	let productArray = []; /* Without highlighted bits */
+	let productDisplay = []; 
+	let productArray = []; 
 
 	/* Isolate the first element (corresponding to the least significant bit of the product). */
 	productDisplay.push(`<b class = "emphasized no-underline">${product[product.length - 1]}</b>`);
@@ -106,47 +82,26 @@ function formatProductDisplay(product) {
 	return productDisplay;
 }
 
-/**
- * Appends a template string to the existing demonstration (simulation) display.
- *
- * @param {string} template Template string containing the formatted display to be appended.
- */
+
 function appendTemplate(template) {
 	const contents = $('#algo-steps').html();
 	$('#algo-steps').html(`${contents}${template}`);
 }
 
-/**
- * Appends a row to an existing table given the template string corresponding to the row and the ID
- * corresponding to the table.
- *
- * @param {string} table ID corresponding to the existing table
- * @param {string} addlRow Template string corresponding to the row to be appended.
- */
+
 function appendRow(table, addlRow) {
 	const contents = $('#' + table).html();
 	$('#' + table).html(`${contents}${addlRow}`);
 }
 
-/**
- * Hides the previous step button and changes the text on the playback control to display
- * 'Description' instead of 'Step 0 of x'.
- *
- * This method is called when step 0 (description) is reached.
- */
+
 function noPreviousStep() {
 	$('#prev-step').css('visibility', 'hidden');
 	$('#step').hide();
 	$('#description').show();
 }
 
-/**
- * Hides the previous and next step buttons and changes the text on the playback control to display
- * 'Description' instead of 'Step 0 of x'.
- *
- * This method is called when the multiplication methods are selected without the user entering
- * any input yet.
- */
+
 function noPreviousNextStep() {
 	$('#prev-step').css('visibility', 'hidden');
 	$('#next-step').css('visibility', 'hidden');
@@ -154,9 +109,7 @@ function noPreviousNextStep() {
 	$('#description').show();
 }
 
-/**
- * Shows the previous and next step buttons and all the playback controls.
- */
+
 function withPreviousAndNextStep() {
 	$('#prev-step').css('visibility', 'visible');
 	$('#next-step').css('visibility', 'visible');
@@ -164,22 +117,15 @@ function withPreviousAndNextStep() {
 	$('#description').hide();
 }
 
-/**
- * Unbinds the jQuery click callback of the playback controls.
- */
+
 function unbindClickCallback() {
 	$('#next-step').prop('onclick', null).off('click');
 	$('#prev-step').prop('onclick', null).off('click');
 }
 
-/**
- * Utility function for starting the demonstration (simulation).
- */
+
 function demoUtil() {
-	/*
-	 * Failure to unbind will result in the repeated triggering of the click event (even with only
-	 * a single click) when the user presses the multiply button again without refreshing the page.
-	 */
+	
 	unbindClickCallback();
 
 	/* Clear the results area. */
@@ -201,7 +147,7 @@ function demoUtil() {
 	$('#multiplier-dec-value').text(multiplierDec);
 
 	switch ($('#algo-value').text()) {
-		case algs[0] /* Pencil-and-Paper Method */:
+		case algs[0] /* PnP method */:
 			pencilDemo(
 				$('#multiplicand-bin-value').text(),
 				$('#multiplier-bin-value').text(),
@@ -209,7 +155,7 @@ function demoUtil() {
 				parseInt($('#multiplier-dec-value').text())
 			);
 			break;
-		case algs[1] /* Booth's Algorithm */:
+		case algs[1] /* Booth's */:
 			boothsDemo(
 				$('#multiplicand-bin-value').text(),
 				$('#multiplier-bin-value').text(),
@@ -217,7 +163,7 @@ function demoUtil() {
 				parseInt($('#multiplier-dec-value').text())
 			);
 			break;
-		case algs[2] /* Extended Booth's Algorithm */:
+		case algs[2] /* Extended Booth's */:
 			extendedBoothsDemo(
 				$('#multiplicand-bin-value').text(),
 				$('#multiplier-bin-value').text(),
@@ -226,16 +172,11 @@ function demoUtil() {
 			);
 			break;
 		default:
-			/* Should not cascade here */
 			break;
 	}
 }
 
-/**
- * Handles the case where one of the operands (in binary) is of the form 10...0.
- *
- * More information is provided in the documentation of the methods isAmbiguousCase() in binary.js.
- */
+
 function handleAmbiguousCases() {
 	if (isAmbiguousCase($('#multiplicand-bin').val())) {
 		const val = $('#multiplicand-bin').val().trim();
@@ -262,9 +203,7 @@ function handleAmbiguousCases() {
 	
 }
 
-/**
- * Handles the behavior when the "Show All Steps" display mode is selected.
- */
+
 function showAllSteps() {
 	const mcand = $('#multiplicand-bin').val();
 	const mplier = $('#multiplier-bin').val();
@@ -282,9 +221,7 @@ function showAllSteps() {
 	}
 }
 
-/**
- * Starts the demonstration (simulation) at step 1 (that is, the first step of the algorithm).
- */
+
 function initOps() {
 	$('#multiply').on('click', function () {
 		if (!isAmbiguousCase($('#multiplicand-bin').val()) && !isAmbiguousCase($('#multiplier-bin').val())) {
