@@ -48,6 +48,16 @@ padding-bottom: 1%;
     padding-top: 1%;
     padding-bottom: 1%;
 }
+.topbar #about:hover {
+    background-color: rgb(134, 219, 210);
+    cursor: pointer;
+}
+.topbar #about{
+    margin-left: 2%;
+    color: aliceblue;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
 #input-numbers{
     display: block;
     max-width: 836px;
@@ -131,4 +141,8 @@ button:hover{
     margin-left: 10%;
     border: 1px solid black;
     margin-right: 10%;
+}
+.creds{
+    display: flex;
+    flex-direction: row;
 }
