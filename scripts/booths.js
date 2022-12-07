@@ -15,13 +15,20 @@ const boothsProductRow = `<tr>
  */
 const boothsRecodeMap = new Map();
 
-
+/**
+ * Initializes the results area at the start of the demonstration (simulation) and displays steps A and B.
+ *
+ * Note that the initialization of the step number is handled in the demo() method in demo-util.js.
+ */
 function boothsInit() {
 	$('#algo-name').hide();
 	$('#algo-steps').html(`<br>`);
 }
 
-
+/**
+ * Initializes the results area at the start of the demonstration (simulation) and displays
+ * the description of the algorithm.
+ */
 
 
 /**
@@ -34,18 +41,39 @@ function boothsInitRecodeMap() {
 	boothsRecodeMap.set('11', '0');
 }
 
-
+/**
+ * Initializes the total number of steps.
+ *
+ * Note that the initialization of the step number is handled in the demo() method in demo-util.js.
+ *
+ * @param {string} multiplicandBin Binary multiplicand.
+ * @param {string} multiplierBin Binary multiplier.
+ */
 function boothsTotalSteps(multiplicandBin, multiplierBin) {
 	const numBits = Math.max(multiplicandBin.length, multiplierBin.length);
 
-	
+	/*
+	 * Booth's results in the number of intermediate summands equal to the number of digits of the original binary number.
+	 *
+	 * For example,
+	 * - Multiplier: 10101 --> [not counting the appended zero] 10101(0) --> 5 summands
+	 * - Multiplier: 1010 --> [not counting the appended zero] 1010(0) --> 4 summands
+	 */
 	const numDigitsRecoding = numBits;
 
 	/* Should be one more than the conditional in the method boothsSteps() */
 	$('#total-steps').text(8 + 2 * numDigitsRecoding + 2 * numBits);
 }
 
-/
+/**
+ * Displays the multiplicand and multiplier after their number of bits have been equalized, corresponding
+ * to step B.
+ *
+ * @param {string} multiplicandBin Binary multiplicand.
+ * @param {string} multiplierBin Binary multiplier.
+ * @param {string} multiplicand Multiplicand after number of bits has been equalized.
+ * @param {string} multiplier Multiplier after number of bits has been equalized.
+ */
 function boothsDisplayEqualizedBits(
 	multiplicandBin,
 	multiplierBin,
@@ -100,13 +128,20 @@ function boothsDisplayEqualizedBits(
 	incrementstep();
 }
 
-
+/**
+ * Displays the header along with the first substep of step C.
+ */
 function boothsDisplayStepC01() {
 	appendTemplate(``);
 	incrementstep();
 }
 
-
+/**
+ * Displays the multiplier after appending zero to its least significant bit, corresponding to the first
+ * substep of step C.
+ *
+ * @param {string} multiplierZeroAppended Multiplier after appending zero to its least significant bit.
+ */
 function boothsAppendZero(multiplierZeroAppended) {
 	/* Highlight the appended zero. */
 	const multiplierFormatted = `${multiplierZeroAppended.substring(
@@ -136,7 +171,16 @@ function boothsDisplayStepC2() {
 	incrementstep();
 }
 
-
+/**
+ * Displays the Booth's equivalent of the multiplier, corresponding to the second substep of Step C.
+ *
+ * Precondition:
+ * - The two adjacent bits recoding table (recodeMap) has already been populated.
+ *
+ * @param {number} recodeNumber Step number relative to the bit-pair recoding.
+ * @param {string} multiplierForRecoding Multiplier after appending zero to its least significant bit.
+ * @returns {string} Booth's equivalent of the multiplier.
+ */
 function boothsRecode(recodeNumber, multiplierForRecoding) {
 	let booths = ``; /* Booth's equivalent of the multiplier */
 
@@ -161,13 +205,13 @@ function boothsRecode(recodeNumber, multiplierForRecoding) {
 	let boothsArray = booths
 		.trim()
 		.split(' ')
-		.reverse();
+		.reverse(); /* Without highlighted adjacent bits */
 	let boothsDisplay = booths
 		.trim()
 		.split(' ')
-		.reverse(); 
+		.reverse(); /* With highlighted adjacent bits */
 
-	// Isolated first element
+	/* Isolate the first element (corresponding to the least two significant bits of the product). */
 	boothsDisplay[0] = `<b class = "emphasized">${boothsArray[0]}</b>`;
 	for (let i = 1; i < boothsArray.length; i++) {
 		boothsDisplay[i] = `<b class = "emphasized">${boothsArray[i]}</b> ${
@@ -191,7 +235,10 @@ function boothsRecode(recodeNumber, multiplierForRecoding) {
             ${templateNoDiv}
         </div><br>`;
 
-	
+	/*
+	 * If it is the first step in the recoding, append the template first.
+	 * Otherwise, it suffices to modify the existing template.
+	 */
 	if (recodeNumber == 0) {
 		appendTemplate(template);
 	} else {
@@ -200,11 +247,13 @@ function boothsRecode(recodeNumber, multiplierForRecoding) {
 
 	incrementstep();
 
-	// Booth's multiplier
+	/* Return the Booth's equivalent of the multiplier. */
 	return boothsArray[boothsArray.length - 1];
 }
 
-
+/**
+ * Toggle the visibility of the recoding table (step C).
+ */
 function showBoothsRecoding() {
 	if ($('#booths-step-c-table-provision').html() == '') {
 		$('#booths-step-c-table-provision').html(``);
@@ -215,7 +264,12 @@ function showBoothsRecoding() {
 	}
 }
 
-
+/**
+ * Displays step D.
+ *
+ * @param {string} multiplierForRecoding Multiplier after appending zero to its least significant bit.
+ * @param {string} boothsRecoding Booth's equivalent of the multiplier.
+ */
 function boothsDisplayStepD(multiplierForRecoding, boothsRecoding) {
 	appendTemplate(
 		``
@@ -228,7 +282,18 @@ function boothsDisplayStepD(multiplierForRecoding, boothsRecoding) {
 	incrementstep();
 }
 
-
+/**
+ * Displays the pencil-and-paper multiplication of the multiplicand and the Booth's equivalent
+ * of the multiplier, corresponding to step D.
+ *
+ * @param {number} displayNumber Step number relative to the pencil-and-paper multiplication.
+ * @param {string} multiplicand Multiplicand after number of bits has been equalized.
+ * @param {number} multiplicandDec Decimal multiplicand.
+ * @param {number} multiplierDec Decimal multiplier.
+ * @param {string} boothsRecoding Booth's equivalent of the multiplier.
+ * @param {number} carry Carry of the current addition step.
+ * @returns {string} Binary product.
+ */
 function boothsPencil(
 	displayNumber,
 	multiplicand,
@@ -237,10 +302,10 @@ function boothsPencil(
 	boothsRecoding,
 	carry
 ) {
-	let summands = []; 
-	let summandsFormatted = []; 
-	let boothsDisplay = []; 
-	let currentCarry = carry;	
+	let summands = []; /* Summands (without format) */
+	let summandsFormatted = []; /* Summands (with format) */
+	let boothsDisplay = []; /* Booth's equivalent (with format) */
+	let currentCarry = carry;	/* Carry of the current addition step */
 
 	/* Booth's equivalent (without format) */
 	const boothsArray = boothsRecoding.trim().split(' ').reverse();
@@ -293,11 +358,18 @@ function boothsPencil(
 	const product = multiply(multiplicandDec, multiplierDec, numBitsProduct); /* Without format */
 	const productDisplay = formatProductDisplay(product); /* With format */
 
-	
+	/*
+	 * If it is the first step in the recoding, append the template first.
+	 * Otherwise, it suffices to modify the existing template.
+	 */
 	if (displayNumber == 0) {
 		appendTemplate(template);
 	} else if (displayNumber <= numSummands) {
-		
+		/*
+		 * If it is the last intermediate summand:
+		 * - Add a bottom border to the appended row (to separate the summands from the product).
+		 * - Include a right-aligned plus sign (first cell of the appended row).
+		 */
 		if (displayNumber == numSummands) {
 			addlRow = `<tr class = "summands bottom-border">
                     <th class = "no-bold right-align">+</th>
@@ -318,7 +390,10 @@ function boothsPencil(
 		/* Remove the highlight of the previous summand (thus, subtract 2 from the step number). */
 		$(`#booths-summands-${displayNumber - 2}`).html(`${summands[displayNumber - 2]}`);
 	} else if (displayNumber <= boothsArray.length + numBitsProduct) {
-		
+		/*
+		 * Compute for the total of the bit column being summed.
+		 * Calculate the index so that the rightmost bit column is processed first.
+		 */
 		const index = numBitsProduct - (displayNumber - boothsArray.length);
 		let total = currentCarry;
 		for (let i = 0; i < numSummands; i++) {
@@ -332,7 +407,12 @@ function boothsPencil(
 		/* Compute for the carry based on the sum of the bit column. */
 		currentCarry = Math.floor(total / 2);
 
-		
+		/*
+		 * If it is the least significant bit of the product:
+		 * - Remove the highlight of the multiplicand and Booth's equivalent.
+		 * - Display the carryover.
+		 * - Append the row for displaying the product.
+		 */
 		if (displayNumber == boothsArray.length + 1) {
 			$('#step-d-booths-multiplicand').html(`${multiplicand}`);
 			$('#step-d-booths-display').html(`<span id="booths-display-spacing-span" style="letter-spacing: 0.5px;">${boothsRecoding}&nbsp;</span>`);
@@ -345,7 +425,10 @@ function boothsPencil(
 
 			appendRow('booths-pencil-table', `${boothsProductRow}`);
 		} else if (displayNumber == boothsArray.length + numBitsProduct) {
-			
+			/*
+			 * If it is the most significant bit of the product, display the final carry-over at the cell
+			 * to the left of the product.
+			 */
 			if (currentCarry >= 1) {
 				$('#booths-product-carry-over').text(toBinaryRaw(currentCarry));
 			}
@@ -354,7 +437,10 @@ function boothsPencil(
 		/* Update the carry-over after summation of each bit column. */
 		$('#booths-carry-over').text(toBinaryRaw(currentCarry));
 
-		
+		/*
+		 * Highlight the bit column being summed.
+		 * Calculate the index so that the rightmost bit column is highlighted first.
+		 */
 		for (let i = 0; i < numSummands; i++) {
 			const summand = $(`#booths-summands-${i}`).text();
 			let summandFormatted = '';
@@ -399,7 +485,9 @@ function boothsPencil(
 	return [product, currentCarry];
 }
 
-
+/**
+ * Toggle the visibility of the table showing the multiplication operations (step D).
+ */
 function showBoothsOperations() {
 	if ($('#booths-step-d-table-provision').html() == '') {
 		$('#booths-step-d-table-provision').html(``);
@@ -410,7 +498,14 @@ function showBoothsOperations() {
 	}
 }
 
-
+/**
+ * Displays the verification step.
+ *
+ * @param {string} multiplicandDec Decimal multiplicand.
+ * @param {string} multiplierDec Decimal multiplier.
+ * @param {string} product Binary product.
+ * @param {number} numSummands Number of intermediate summands.
+ */
 function boothsVerify(multiplicandDec, multiplierDec, product, numSummands) {
 	const productDec = multiplicandDec * multiplierDec;
 	const doubleCheck = `${multiplicandDec}<sub>10</sub><span class = "tab-9"></span>&times;<span class = "tab-9"></span>${multiplierDec}<sub>10</sub><span class = "tab-10"></span>=<span class = "tab-10"></span>${productDec}<sub>10</sub><span class = "tab-10"></span>=<span class = "tab-10"></span><span class = "final-answer">${product}<sub>2</sub></span><br>`;
@@ -428,7 +523,14 @@ function boothsVerify(multiplicandDec, multiplierDec, product, numSummands) {
 	incrementstep();
 }
 
-
+/**
+ * Handles which step in the demonstration (simulation) is displayed.
+ *
+ * @param {string} multiplicandBin Binary multiplicand.
+ * @param {string} multiplierBin Binary multiplier.
+ * @param {number} multiplicandDec Decimal multiplicand.
+ * @param {number} multiplierDec Decimal multiplier.
+ */
 function boothsSteps(multiplicandBin, multiplierBin, multiplicandDec, multiplierDec) {
 	/* Equalize the number of bits of the operands. */
 	const [multiplicand, multiplier] = equalizeBits(multiplicandBin, multiplierBin);
@@ -477,7 +579,12 @@ function boothsSteps(multiplicandBin, multiplierBin, multiplicandDec, multiplier
 				boothsDisplayStepC2();
 			} 
 			else if (stepNumber <= 4 + numDigitsRecoding) {
-				
+				/*
+				 * The number of steps taken is equal to the number of digits in the Booth's equivalent
+				 * (+ numDigitsRecoding).
+				 *
+				 * The first argument refers to the step number relative to the recoding.
+				 */
 				boothsRecoding = boothsRecode(
 					stepNumber - 5,
 					multiplierForRecoding
@@ -485,7 +592,15 @@ function boothsSteps(multiplicandBin, multiplierBin, multiplicandDec, multiplier
 			} else if (stepNumber == 5 + numDigitsRecoding) {
 				boothsDisplayStepD(multiplierForRecoding, boothsRecoding);
 			} else if (stepNumber <= 6 + 2 * numDigitsRecoding + 2 * multiplicand.length) {
-				
+				/*
+				 * The number of steps taken is one more than the number of digits in the Booth's equivalent
+				 * plus the number of number of bits in the product (1 + numDigitsRecoding + 2 * multiplicand.length).
+				 *
+				 * The additional step comes from the display of the multiplication statement (prior to performing
+				 * pencil-and-paper method).
+				 *
+				 * The first argument refers to the step number relative to the pencil-and-paper method.
+				 */
 				[product, carry] = boothsPencil(
 					stepNumber - 6 - numDigitsRecoding,
 					multiplicand,
@@ -527,12 +642,20 @@ function boothsSteps(multiplicandBin, multiplierBin, multiplicandDec, multiplier
 	$('#booths-recoding').text(boothsRecoding);
 }
 
-
+/**
+ * Returns to the previous displayed step when the previous button is clicked.
+ *
+ * @param {string} multiplicandBin Binary multiplicand.
+ * @param {string} multiplierBin Binary multiplier.
+ */
 function boothsRewind(multiplicandBin, multiplierBin) {
 	$('#prev-step').on('click', function () {
 		withPreviousAndNextStep();
 
-		
+		/*
+		 * Subtract 2 since the boothsSteps() method triggers the displayed step based on the previous
+		 * value of the step number.
+		 */
 		if ($('#step-number-value').text() == 1) {
 			boothsGoToStep0();
 		} else {
@@ -545,13 +668,22 @@ function boothsRewind(multiplicandBin, multiplierBin) {
 	});
 }
 
-
+/**
+ * Changes the displayed step depending on the step number entered in the input field.
+ *
+ * @param {string} multiplicandBin Binary multiplicand.
+ * @param {string} multiplierBin Binary multiplier.
+ */
 function boothsGoToStep(multiplicandBin, multiplierBin) {
+	/* Trigger the change when the enter key is pressed. */
 	$('#step-number').on('keyup', function (e) {
 		if (e.code == 'Enter') {
 			withPreviousAndNextStep();
 
-			
+			/*
+			 * Subtract 1 since the boothsSteps() method triggers the displayed step based on the previous
+			 * value of the step number.
+			 */
 			if ($('#step-number').val() == 0) {
 				boothsGoToStep0();
 			} else {
@@ -570,7 +702,9 @@ function boothsGoToStep(multiplicandBin, multiplierBin) {
 	});
 }
 
-
+/**
+ * Returns to the description of the algorithm (step 0).
+ */
 function boothsGoToStep0() {
 	initStepNumber(0);
 
@@ -581,7 +715,13 @@ function boothsGoToStep0() {
 	window.scrollTo(0, 0);
 }
 
-
+/**
+ * Changes the displayed step depending on the specified step number.
+ *
+ * @param {number} stepNumber Step number.
+ * @param {string} multiplicandBin Binary multiplicand.
+ * @param {string} multiplierBin Binary multiplier.
+ */
 function boothsGoTo(stepNumber, multiplicandBin, multiplierBin) {
 	/* Return to the first step, and repeatedly trigger the click (next step) event to change the displayed step. */
 	boothsInit();
@@ -600,21 +740,38 @@ function boothsGoTo(stepNumber, multiplicandBin, multiplierBin) {
 	}
 }
 
-
+/**
+ * Scrolls to the designated area when the visibility of the recoding table is toggled.
+ *
+ * The actual toggling of visibility is controlled in the constant boothsStepCShowTable, found
+ * in algo-strings.js.
+ */
 function scrollToBoothsRecoding() {
 	$('html, body').animate({
 		scrollTop: $('#scroll-booths-recoding-table').offset().top
 	});
 }
 
-
+/**
+ * Scrolls to the designated area when the visibility of the operations table is toggled.
+ *
+ * The actual toggling of visibility is controlled in the constant boothsStepDShowTable, found
+ * in algo-strings.js.
+ */
 function scrollToBoothsOperations() {
 	$('html, body').animate({
 		scrollTop: $('#scroll-booths-operations').offset().top
 	});
 }
 
-
+/**
+ * Handles the demonstration (simulation) of the Booth's algorithm.
+ *
+ * @param {string} multiplicandBin Binary multiplicand.
+ * @param {string} multiplierBin Binary multiplier.
+ * @param {number} multiplicandDec Decimal multiplicand.
+ * @param {number} multiplierDec Decimal multiplier.
+ */
 function boothsDemo(multiplicandBin, multiplierBin, multiplicandDec, multiplierDec) {
 	boothsInit();
 	boothsInitRecodeMap();
