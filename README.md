@@ -80,7 +80,8 @@ Figma         | used to visualize |
 - Longno, Darren Andrei Cada
   darren_longo@dlsu.edu.ph
   
- - Kurt Cabigan
+ - Cabingan, Kurt Julian Gandia
+   kurt_cabingan@dlsu.edu.ph
    
    
    

@@ -72,38 +72,14 @@ const boothsStepCTable = `<table class = "indented-2 procedure">
         </tr>
     </table>`;
 
-const boothsStepD = `<div class = "hanging-indent">
-        <b>D.<span class="tab-12"></span>Multiply using pencil-and-paper method &mdash; but ignore the extra step even if the multiplier 
-        is negative.<br>
-        Since an adjacent pair of bits is encoded, skip <u>one</u> bit for each 
-        intermediate product.</b>
-    </div>`;
+const boothsStepD = ``;
 
 const boothsStepDShowTable = `<div class = "indented-0 small-top-space">
-        Click <a onclick = "showBoothsOperations(); scrollToBoothsOperations();" class = "with-underline no-decor no-hover" id = "show-booths-recording">here</a> 
-        to <span id = "show-hide-booths-operations">show</span> the multiplication guide.
     </div>`;
 
 const boothsStepDTableProvision = `<span id = "booths-step-d-table-provision"></span>`;
 
-const boothsStepDTable = `<table class = "indented-2 procedure">
-        <tr>
-            <th>Multiply by</th>
-            <th>Procedure</th>
-        </tr>
-        <tr>
-            <td>0</td>
-            <td>0</td>
-        </tr>
-        <tr>
-            <td>+1</td>
-            <td>Itself</td>
-        </tr>
-        <tr>
-            <td>-1</td>
-            <td>Two's complement</td>
-        </tr>
-    </table>`;
+const boothsStepDTable = ``;
 
 const boothsAlgo = `${boothsIntro}
     ${boothsStepA}
@@ -211,60 +187,17 @@ const extendedBoothsStepCTable = `<table class = "indented-2 procedure merged">
     </table>`;
 
 const extendedBoothsStepD = `<div class = "hanging-indent">
-        <b>D.<span class="tab-12"></span>Multiply using pencil-and-paper method &mdash; but ignore the extra step even if the multiplier 
-        is negative.<br>
-        Since a bit-pair is equivalent to two bits, skip <u>two</u> bits for each 
-        intermediate product.</b>
+        <b><span class="tab-12"></span>
     </div>`;
 
-const extendedBoothsStepDShowTable = `<div class = "indented-0 small-top-space">
-        Click <a onclick = "showExtendedBoothsOperations(); scrollToExtendedBoothsOperations();" class = "with-underline no-decor no-hover" id = "show-extended-booths-recording">here</a> 
-        to <span id = "show-hide-extended-booths-operations">show</span> the multiplication guide.
+const extendedBoothsStepDShowTable = `<div class = "indented-0 small-top-space">       
     </div>`;
 
-const extendedBoothsStepDTableProvision = `<span id = "extended-booths-step-d-table-provision"></span>`;
+const extendedBoothsStepDTableProvision = ``;
 
-const extendedBoothsStepDTable = `<table class = "indented-2 procedure">
-        <tr>
-            <th>Multiply by</th>
-            <th>Procedure</th>
-        </tr>
-        <tr>
-            <td>0</td>
-            <td>0</td>
-        </tr>
-        <tr>
-            <td>+1</td>
-            <td>Itself</td>
-        </tr>
-        <tr>
-            <td>-1</td>
-            <td>Two's complement</td>
-        </tr>
-        <tr>
-            <td>+2</td>
-            <td>Arithmetic left shift (append 0 to the least significant bit)</td>
-        </tr>
-        <tr>
-            <td>-2</td>
-            <td>Two's complement, then arithmetic left shift</td>
-        </tr>
-    </table>`;
+const extendedBoothsStepDTable = ``;
 
-const extendedBoothsPicture = `<br><div class = "div-picture">
-        <img src = "assets/ibm-extended-booths.jpg" class = "picture">
-        <span class = "tab-13"></span>
-        <img src = "assets/ibm-extended-booths-2.jpg" class = "picture">
-        <br>
-        <div class = "picture-caption">
-            To perform fast multiplication, the <b>IBM System/360 Model 91</b>, released in January 1966 and used
-            at the NASA Goddard Space Flight Center back in the late 60s,  employed the extended Booth's algorithm and utilized 
-            a tree of carry-save adders. More information on its implementation can be found 
-            in a 1967 paper by S.F. Anderson, J.G. Earle, R.E. Goldschmidt, and D.M. Powers&nbsp;
-            <a class = "no-decor no-hover trivia" href = "https://ieeexplore.ieee.org/document/5392016" target = "_blank">
-            <i class = "fa fa-external-link no-hover"></i></a>
-        </div>
-    </div><br>`;
+const extendedBoothsPicture = ``;
 
 const extendedBoothsAlgo = `${extendedBoothsIntro}
     ${extendedBoothsStepA}
