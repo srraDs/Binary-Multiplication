@@ -1,16 +1,12 @@
-/**
- * File containing the strings (literal constants) used in the website.
- *
- * For horizontal spacing, use the .tab-n (where n is a natural number) classes found in style.css,
- * as seen in the strings related to the extended Booth's algorithm. Avoid using consecutive &nbsp;
- * since these clutter the text included when the user performs a selection.
+/*
+ * This file contains the strings implemented/seen in the actual webapp
  */
 
-/* --- ALGORITHM NAMES --- */
-const algoNames = [`Pencil-and-Paper Method`, `Booth's Algorithm`, `Extended Booth's Algorithm`];
+// Binary Multiplication Ways
+const algoNames = [`Pencil and Paper`, `Booth's`, `Extended Booth's`];
 
 
-/* --- PENCIL-AND-PAPER ALGORITHM --- */
+// Pencil & Paper
 
 
 const pencilStepStrings = [
@@ -24,7 +20,7 @@ const pencilStepB = ``;
 const pencilStepC = ``;
 
 
-/* --- BOOTH'S ALGORITHM --- */
+// Booth's
 const boothsIntro = ``;
 
 const boothsStepStrings = [
@@ -89,7 +85,7 @@ const boothsAlgo = `${boothsIntro}
     ${boothsStepD}
     ${boothsStepDTable}`;
 
-/* --- EXTENDED BOOTH'S ALGORITHM --- */
+// Extended Booth's
 const extendedBoothsIntro = ``;
 
 const extendedBoothsStepStrings = [
@@ -210,5 +206,5 @@ const extendedBoothsAlgo = `${extendedBoothsIntro}
 
 
 
-/* Verification step at the end of every multiplication algorithm demonstration (simulation) */
+// final step before outputting the desired answer
 const verify = ``;
