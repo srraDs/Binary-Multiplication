@@ -118,3 +118,7 @@ button:hover{
 .hidden{
     visibility: hidden;
 }
+#save{
+    background-color: rgb(19, 34, 53);
+    color: aliceblue;
+}
