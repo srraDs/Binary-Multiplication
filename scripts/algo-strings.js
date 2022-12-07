@@ -11,7 +11,7 @@ const algoNames = [`Pencil-and-Paper Method`, `Booth's Algorithm`, `Extended Boo
 
 
 /* --- PENCIL-AND-PAPER ALGORITHM --- */
-const pencilIntro = ``;
+
 
 const pencilStepStrings = [
 	

@@ -10,8 +10,8 @@
  * Row where the product is displayed (final steps of pencil-and-paper demonstration/simulation).
  */
 const boothsProductRow = `<tr>
-        <th id = "booths-product-carry-over" class = "no-bold right-align carry-over blurred"></th>
-        <td id = "booths-product" class = "right-align"></td>
+        <th id = "booths-product-carry-over" ></th>
+        <td id = "booths-product" ></td>
     </tr>`;
 
 /**
@@ -33,12 +33,7 @@ function boothsInit() {
  * Initializes the results area at the start of the demonstration (simulation) and displays
  * the description of the algorithm.
  */
-function boothsDescription() {
-	/* 1 refers to the index of the Booth's algorithm. */
-	
-	showAlgoName(1);
-	
-}
+
 
 /**
  * Populates the two adjacent bits recoding table.
@@ -716,7 +711,7 @@ function boothsGoToStep(multiplicandBin, multiplierBin) {
  */
 function boothsGoToStep0() {
 	initStepNumber(0);
-	boothsDescription();
+
 
 	noPreviousStep();
 
